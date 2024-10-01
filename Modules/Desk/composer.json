@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/desk",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Desk\\": "app/",
+            "Modules\\Desk\\Database\\Factories\\": "database/factories/",
+            "Modules\\Desk\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Desk\\Tests\\": "tests/"
+        }
+    }
+}
