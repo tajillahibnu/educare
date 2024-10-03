@@ -6,21 +6,165 @@ use Illuminate\Http\JsonResponse;
 
 trait ApiResponseTrait
 {
+    protected $response = [
+        'success' => true,
+        'message' => '',
+        'data' => [],
+        'meta' => [
+            'timestamp' => null,
+            'version' => '1.0.0',
+        ],
+        'error' => null,
+        // 'media_type' => 'application/json',
+    ];
+
     /**
-     * Generate a standard API response.
+     * Set response message and success flag.
+     *
+     * @param bool|null $success
+     * @param string|null $message
+     * @return $this
+     */
+    public function apiResponse($success = null, $message = null)
+    {
+        // If success is provided, set it
+        if ($success !== null) {
+            $this->response['success'] = $success;
+        }
+
+        // Set message if provided
+        $this->response['message'] = $message ?? ($this->response['success'] ? 'Request was successful' : 'Request failed');
+
+        // Set timestamp
+        $this->response['meta']['timestamp'] = now()->toIso8601String();
+
+        return $this;
+    }
+
+    /**
+     * Add data to the response with a custom key.
+     *
+     * @param mixed $data
+     * @param bool $separate
+     * @param string $key
+     * @return $this
+     */
+    public function data($data, $separate = false, $key = 'data')
+    {
+        if ($separate) {
+            // Jika `true`, tambahkan data sebagai properti terpisah
+            foreach ($data as $k => $value) {
+                $this->response[$k] = $value;
+            }
+        } else {
+            // Jika `false`, gunakan kunci yang ditentukan untuk menyimpan data
+            $this->response[$key] = $data;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the API version.
+     *
+     * @param string $version
+     * @return $this
+     */
+    public function version($version)
+    {
+        $this->response['meta']['version'] = $version;
+        return $this;
+    }
+
+    /**
+     * Set error details.
+     *
+     * @param string $error
+     * @return $this
+     */
+    public function error($error)
+    {
+        $this->response['error'] = $error;
+        return $this;
+    }
+
+    /**
+     * Set response media type.
+     *
+     * @param string $mediaType
+     * @return $this
+     */
+    public function mediaType($mediaType)
+    {
+        $this->response['media_type'] = $mediaType;
+        return $this;
+    }
+
+    /**
+     * Set response message.
+     *
+     * @param string $message
+     * @return $this
+     */
+    public function message($message)
+    {
+        $this->response['message'] = $message;
+        return $this;
+    }
+
+    /**
+     * Set response success status.
      *
      * @param bool $success
-     * @param mixed $data
-     * @param string $message
+     * @return $this
+     */
+    public function success($success)
+    {
+        $this->response['success'] = $success;
+        return $this;
+    }
+
+    /**
+     * Set HTTP status code.
+     *
      * @param int $statusCode
+     * @return $this
+     */
+    public function statusCode($statusCode = 200)
+    {
+        // $this->response['statusCode'] = $statusCode;
+        http_response_code($statusCode);
+        return $this;
+    }
+
+    /**
+     * Get the final JSON response.
+     *
      * @return JsonResponse
      */
-    protected function apiResponse($success, $data = null, $message = '', $statusCode = 200): JsonResponse
+    public function send($statusCode = null): JsonResponse
     {
-        return response()->json([
-            'success' => $success,
-            'message' => $message,
-            'data' => $data,
-        ], $statusCode);
+        // Hapus kunci 'data' jika arraynya kosong
+        if (empty($this->response['data'])) {
+            unset($this->response['data']);
+        }
+
+        // Jika ada error, set success menjadi false
+        if ($this->response['error'] !== null) {
+            $this->response['success'] = false;
+        }
+
+        if (empty($this->response['error'])) {
+            unset($this->response['error']);
+        }
+
+        if ($statusCode == null) {
+            $statusCode = $this->response['success'] ? 200 : 400;
+        }
+
+        return response()->json($this->response, $statusCode);
+        // return response()->json($this->response, $this->response['success'] ? 200 : 400, [
+        //     'Content-Type' => $this->response['media_type']
+        // ]);
     }
 }

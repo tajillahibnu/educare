@@ -14,6 +14,6 @@ use Modules\Superadmin\Http\Controllers\SuperadminController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('superadmin', SuperadminController::class)->names('superadmin');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('superadmin', SuperadminController::class)->names('superadmin');
+// });

@@ -15,8 +15,10 @@ use Modules\Desk\Http\Controllers\PageController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('desk', DeskController::class)->names('desk');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('desk', DeskController::class)->names('desk');
+// });
 
-Route::post('load-page', [PageController::class, 'loadPage'])->name('/api/load-page');
+Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () {
+    Route::post('load-page', [PageController::class, 'loadPage'])->name('/api/load-page');
+});

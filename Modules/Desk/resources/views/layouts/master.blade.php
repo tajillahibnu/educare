@@ -71,7 +71,7 @@
                 // let url = 'desk/content';
                 $('#content-area').html('');
                 // Axios untuk mengambil konten dari server
-                axios.post('/api/load-page', {
+                axios.post('/api/desk/load-page', {
                 // axios.post('/desk/content', {
                         id: url,
                         params: params
