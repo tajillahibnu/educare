@@ -22,13 +22,13 @@ class MenuSeeder extends Seeder
 
     function dashboard($id)
     {
-        
+
         $save['id']    = $id;
         $save['name']  = 'Dashboard';
         $save['type']  = 'admin';
         $save['url']   = 'dashboard';
-        $save['path']  = 'dashboard';
-        $save['view']  = 'index';
+        $save['view_path']  = 'dashboard/';
+        $save['view_file']  = 'table';
         $save['level'] = null;
         $save['menu_order'] = 1;
         $save['middlewares'] = json_encode(['auth']);
@@ -47,7 +47,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Penilaian';
@@ -58,7 +58,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Absensi';
@@ -69,7 +69,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Jadwal';
@@ -80,7 +80,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Evaluasi & Ujian';
@@ -104,37 +104,50 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Siswa';
-        $save['url']        = null;
+        $save['url']        = 'siswa';
         $save['level']      = null;
         $save['type']       = 'admin';
         $save['menu_order'] = 1;
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Guru';
-        $save['url']        = null;
+        $save['url']        = 'guru';
         $save['level']      = null;
         $save['type']       = 'admin';
         $save['menu_order'] = 1;
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Karyawan';
-        $save['url']        = null;
+        $save['url']        = 'karyawan';
         $save['level']      = null;
         $save['type']       = 'admin';
         $save['menu_order'] = 1;
         $save['middlewares'] = json_encode(['auth']);
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $dd;
+        $save['parent_id']  = $id;
+        $save['name']       = 'Akun User';
+        $save['url']        = 'user_account';
+        $save['level']      = null;
+        $save['type']       = 'admin';
+        $save['menu_order'] = 1;
+        $save['middlewares'] = json_encode(['auth']);
+        $save['view_path']       = 'managament/user_account/';
+        $save['view_file']       = 'index';
         Menu::create($save);
     }
 
@@ -150,7 +163,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Mata Pelajaran';
@@ -161,7 +174,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Kurikulum';
@@ -172,7 +185,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Tahun Pelajaran';
@@ -183,7 +196,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Kelas';
@@ -194,7 +207,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Ruang Kelas';
@@ -205,7 +218,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
     }
-    
+
     function setting($id)
     {
         $dd = $id;
@@ -217,8 +230,8 @@ class MenuSeeder extends Seeder
         $save['menu_order'] = 9;
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
-        
-        $dd = $dd+1;
+
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'App Settings';
@@ -227,8 +240,11 @@ class MenuSeeder extends Seeder
         $save['type']       = 'admin';
         $save['menu_order'] = 1;
         $save['middlewares'] = json_encode(['auth']);
+        $save['view_path']       = 'setting/app/';
+        $save['view_file']       = 'index';
         Menu::create($save);
-        $dd = $dd+1;
+        
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Role & Permission';
@@ -239,7 +255,7 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
-        $dd = $dd+1;
+        $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Pengaturan Kurikulum';

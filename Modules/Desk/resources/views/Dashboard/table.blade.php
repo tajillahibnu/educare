@@ -1,4 +1,3 @@
-<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row g-6">
         <!-- Card Border Shadow -->
         <div class="col-lg-3 col-sm-6">
@@ -714,4 +713,3 @@
         </div>
         <!--/ On route vehicles Table -->
     </div>
-</div>

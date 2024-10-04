@@ -27,8 +27,10 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div id="content-area">
-                        @yield('content')
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div id="content-area">
+                            @yield('content')
+                        </div>
                     </div>
                     <!-- / Content -->
 
@@ -72,7 +74,7 @@
                 $('#content-area').html('');
                 // Axios untuk mengambil konten dari server
                 axios.post('/api/desk/load-page', {
-                // axios.post('/desk/content', {
+                        // axios.post('/desk/content', {
                         id: url,
                         params: params
                     })

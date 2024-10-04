@@ -10,47 +10,32 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Modules\Desk\Services\ShowPageService;
 
 class PageController extends Controller
 {
     use ApiResponseTrait;
+
+    protected ShowPageService $pageService;
+
+    public function __construct(ShowPageService $pageService)
+    {
+        $this->pageService = $pageService;
+    }
+
+
     public function loadPage(Request $request)
     {
         // Cek apakah ada parameter khusus yang dikirim dari axios
         $page = $request->input('params');
-        $menu = decryptData($page);
-        // Render Blade view sesuai permintaan
-        // if ($page === 'dashboard') {
-        //     $html = view('desk::Dashboard.table')->render();
-        // } else if ($page === 'profile') {
-        //     $html = view('desk::Dashboard.table')->render();
-        // } else {
-        $html = view('desk::Dashboard.table')->render();
-        // }
-
-
-        $html = json_encode($menu);
-
-
-
-        $encryptedHtml = encryptData($html);
+        $menu = json_decode(decryptData($page), true);
+        
+        // Panggil service untuk render HTML
+        $html = $this->pageService->show($request);
         // Kembalikan HTML yang sudah dirender sebagai respons
-        $d = Menu::all();
-        $r['menu'] = $menu;
-        $r['s'] = $d;
-        $r['html'] = $encryptedHtml;
+        $r['html'] = $html;
         return $this->apiResponse()
-            ->success(false)
-            ->message('lol')
-            ->data($r)
-            // ->data($r, true)
-            // ->data($r, false, 'params')
+            ->data($r, true)
             ->send(200);
-
-        // return response()->json([
-        //     'success'   => true,
-        //     'menu'      => $menu,
-        //     'html'      => $encryptedHtml,
-        // ]);
     }
 }

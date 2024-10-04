@@ -10,7 +10,7 @@ class Menu extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'type', 'url', 'parent_id', 'level', 'menu_order','path','view'];
+    protected $fillable = ['name', 'type', 'url', 'parent_id', 'level', 'menu_order','view_path','view_file'];
     protected $casts = [
         'middlewares' => 'array',
     ];

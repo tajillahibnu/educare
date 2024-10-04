@@ -62,7 +62,7 @@
             <ul class="menu-sub">
                 @foreach ( $menu->sub_menu as $subMenu)
                 <li class="menu-item active">
-                    <a href="javascript:void(0)" class="menu-link main-menu_nav" data-url="{{$menu->url}}" data-params="{{base64_encode(json_encode($menu, JSON_PRETTY_PRINT))}}">
+                    <a href="javascript:void(0)" class="menu-link main-menu_nav" data-url="{{$menu->url}}" data-params="{{base64_encode(json_encode($subMenu, JSON_PRETTY_PRINT))}}">
                         <div data-i18n="{{$subMenu->name}}">{{$subMenu->name}}</div>
                     </a>
                 </li>

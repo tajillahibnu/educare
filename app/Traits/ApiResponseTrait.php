@@ -132,7 +132,7 @@ trait ApiResponseTrait
      */
     public function statusCode($statusCode = 200)
     {
-        // $this->response['statusCode'] = $statusCode;
+        $this->response['statusCode'] = $statusCode;
         http_response_code($statusCode);
         return $this;
     }
@@ -158,13 +158,14 @@ trait ApiResponseTrait
             unset($this->response['error']);
         }
 
-        if ($statusCode == null) {
+        // Hapus kunci 'status_code' jika tidak disetel
+        if (!isset($this->response['status_code'])) {
             $statusCode = $this->response['success'] ? 200 : 400;
+        } else {
+            $statusCode = $this->response['status_code'];
         }
+        unset($this->response['status_code']);
 
         return response()->json($this->response, $statusCode);
-        // return response()->json($this->response, $this->response['success'] ? 200 : 400, [
-        //     'Content-Type' => $this->response['media_type']
-        // ]);
     }
 }
