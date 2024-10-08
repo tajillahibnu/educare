@@ -24,14 +24,12 @@
                 </div>
             </div>
             <div class="card-datatable table-responsive">
-                <table id="main-table" class="dt-route-vehicles table table-sm">
+                <table id="maintable" class="dt-route-vehicles table table-sm">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>No</th>
                             <th>Nama</th>
-                            <th>Tipe</th>
-                            <th>Status</th>
-                            <th class="w-20">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>

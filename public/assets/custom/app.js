@@ -1,3 +1,5 @@
+var acces_role = 'admin';
+var access_token = 'admin';
 /**
  * Penulisan var APP = ((config) => { ... })(); 
  * adalah contoh dari Immediately Invoked Function Expression (IIFE) dalam JavaScript, 
@@ -40,7 +42,109 @@ var APP = ((config) => {
                     console.error("Error while saving data:", error);
                     throw error;
                 });
-        }
+        },
+        initTable: (config) => {
+            // Pastikan columnDefs terdefinisi
+            if (!config.columnDefs) {
+                config.columnDefs = [];
+            }
+
+            // Menggabungkan pengaturan default dan pengaturan pengguna
+            config = $.extend(true, {
+                el: '#maintable',
+                el_search: 'search',
+                // url: BASE_API_URL,
+                multiple: false,
+                sorting: 'asc',
+                // kode: 'bypass',
+                index: 1,
+                searching: true,
+                tabDetails: false,
+                responsive: false,
+                pageLength: 10,
+                mouseover: true,
+                stateSave: false,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                destroyAble: true,
+                data: {},
+                filterColumn: {
+                    state: true,
+                    exceptionIndex: []
+                },
+                callbackClick: function () { },
+                rawClick: function () { },
+                tokenType: 'csrf' // Tambahkan pengaturan untuk menentukan jenis token
+            }, config);
+
+            // Pengaturan DataTable
+            var xdefault = {
+                destroy: config.destroyAble,
+                lengthMenu: [5, 10, 25, 50, 100],
+                pageLength: config.pageLength,
+                searchDelay: 500,
+                processing: true,
+                serverSide: true,
+                order: [
+                    [config.index, config.sorting]
+                ],
+                fnDrawCallback: function (oSettings) {
+                    // Inisialisasi komponen setelah menggambar
+                    // KTComponents.init();
+                },
+                ajax: {
+                    url: config.url,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'X-Tipe': 'web',
+                    },
+                    data: function (d) {
+                        $.extend(d, config.data);
+                    },
+                    error: function (error) {
+                        if (error.status === 401) {
+                            location.reload(); // Reload jika tidak terautentikasi
+                        }
+                        console.error('Error fetching data:', error);
+                    },
+                },
+                // Callback untuk menambahkan kolom dengan '-' jika data tidak ada
+                fnRowCallback: function (row, data, index) {
+                    
+                },
+
+            };
+
+            config.columnDefs.push({
+                targets: 0,
+                orderable: false,
+                width: "50px", // Mengatur lebar kolom nomor urut
+                render: function (data, type, full, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+            });
+
+            // Inisialisasi DataTable
+            var dt = $(config.el).DataTable($.extend(true, xdefault, config));
+
+            // Penanganan pencarian custom
+            // setTimeout(() => {
+            //     if (config.searching) {
+            //         const filterSearch = document.querySelector(`[data-kt-filter="${config.el_search}"]`);
+            //         filterSearch.addEventListener('keypress', function (e) {
+            //             if (e.key === 'Enter') {
+            //                 dt.search(e.target.value).draw();
+            //             }
+            //         });
+            //     }
+            // }, 500);
+
+            return dt;
+        },
+
     };
 })({ defaultOption: true }); // Mengirimkan objek config saat IIFE dipanggil
 
