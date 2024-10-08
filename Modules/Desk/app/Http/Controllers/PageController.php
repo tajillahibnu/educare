@@ -29,13 +29,22 @@ class PageController extends Controller
         // Cek apakah ada parameter khusus yang dikirim dari axios
         $page = $request->input('params');
         $menu = json_decode(decryptData($page), true);
-        
+
         // Panggil service untuk render HTML
         $html = $this->pageService->show($request);
         // Kembalikan HTML yang sudah dirender sebagai respons
-        $r['html'] = $html;
+        // $r['html'] = $html['html'];
+        // $r['html'] = $html;
         return $this->apiResponse()
-            ->data($r, true)
+            ->data($html, true)
+            ->send(200);
+    }
+
+    public function mainTable(Request $request)
+    {
+        $res = $request->input();
+        return $this->apiResponse()
+            ->data($res, true)
             ->send(200);
     }
 }

@@ -57,6 +57,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="{{asset('/')}}assets/custom/app.js"></script>
+    <div id="content-plugins"></div>
     <script>
         let BASE_URL = `{{URL('/')}}`;
         let menuLinks = document.querySelectorAll('.main-menu_nav');
@@ -73,14 +74,17 @@
                 // let url = 'desk/content';
                 $('#content-area').html('');
                 // Axios untuk mengambil konten dari server
-                axios.post('/api/desk/load-page', {
+                axios.post('/desk/load-page', {
                         // axios.post('/desk/content', {
                         id: url,
                         params: params
                     })
                     .then(function(response) {
                         var html = atob(response['data'].html);
+                        var plugins = atob(response['data'].plugins);
+                        console.log(plugins)
                         $('#content-area').html(html);
+                        $('#content-plugins').html(plugins);
                         // console.log(atob(response.html))
                         // console.log(response);
                         // Menampilkan respons dalam div content-area
@@ -92,6 +96,7 @@
                     });
             });
         });
+
         axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         document.addEventListener('DOMContentLoaded', function() {
             const observer = new MutationObserver(function(mutations) {
@@ -105,9 +110,9 @@
                 childList: true,
                 subtree: true
             });
-            APP.save({
-                data: "some data"
-            });
+            // APP.save({
+            //     data: "some data"
+            // });
         });
     </script>
     @yield('plugins')

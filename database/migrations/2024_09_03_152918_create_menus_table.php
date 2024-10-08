@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('type')->default('admin'); // Jenis menu: 'portal' atau 'admin'
             $table->integer('menu_order')->default(0); // Urutan tampilan menu
             $table->string('method')->default('index'); // Jenis menu: 'portal' atau 'admin'
-            $table->string('view_path')->default('index'); // Jenis menu: 'portal' atau 'admin'
+            $table->string('view_path')->nullable(); // Jenis menu: 'portal' atau 'admin'
             $table->string('view_file')->nullable(); // Jenis menu: 'portal' atau 'admin'
             $table->json('middlewares')->nullable(); // Middleware sebagai JSON
             $table->timestamps();

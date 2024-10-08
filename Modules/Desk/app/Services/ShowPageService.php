@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 
 class ShowPageService
 {
@@ -25,45 +26,60 @@ class ShowPageService
         $page = $request->input('params');
         $menu = json_decode(decryptData($page), true);
         $menuId = $menu['id'];
+        $html = '';
+        $plugins = '';
 
         // // Cari menu di database
-        $menu = Menu::find($menuId);
+        $menu = $this->getMenu($menuId);
 
         if (!$menu) {
             throw new Exception('Menu not found!');
         }
-        
-        if(empty($menu->view_path)){
-            throw new Exception('View path file does not exist!');
+        if (empty($menu->view_path)) {
+            $html = 'View path file does not exist';
+            // throw new Exception('View path file does not exist!');
         }
 
-        if(empty($menu->view_file)){
-            throw new Exception('View file does not exist!');
-        }
 
-        // Ambil lokasi path view dari menu
-        $this->viewPath = 'desk::' . str_replace('/', '.', $menu->view_path . $menu->view_file);
-        // $viewPath = 'desk::' . str_replace('/', '.', $menu->view_path . 'table');
-        if (!view()->exists($this->viewPath)) {
-            // Path template default
-            $this->copyDefaultView($menu->view_path . $menu->view_file);
-            throw new Exception('View file does not exist! ' . $this->viewPath);
+        if ($html == '') {
+            if (empty($menu->view_file)) {
+                throw new Exception('View file does not exist!');
+            }
+            // Ambil lokasi path view dari menu
+            $this->viewPath = 'desk::' . str_replace('/', '.', $menu->view_path . $menu->view_file);
+            if (!view()->exists($this->viewPath)) {
+                // Path template default
+                $this->copyDefaultView($menu->view_path . $menu->view_file);
+                throw new Exception('View file does not exist! ' . $this->viewPath);
+            } else {
+                $html = view($this->viewPath)->render();
+            }
+
+            $pluginsLocation = 'desk::' . str_replace('/', '.', $menu->view_path . 'plugins');
+            if (view()->exists($pluginsLocation)) {
+                $plugins = view($pluginsLocation)->render();
+            }
         }
-        // echo $viewPath;
-        // exit;
         // Render view berdasarkan path yang ditemukan
         try {
-            // $html = view('desk::Dashboard.table')->render();
-            $html = view($this->viewPath)->render();
             $html = encryptData($html);
+            $plugins = encryptData($plugins);
         } catch (\Throwable $e) {
             throw new Exception('View not found or error in rendering view.');
         }
 
-        return $html;
+        return ['html' => $html, 'plugins' => $plugins];
 
         // Render HTML dari view dan return
         // return encryptData($html);
+    }
+
+    protected function getMenu($menuId)
+    {
+        $menu = Cache::remember("menu_{$menuId}", 60, function () use ($menuId) {
+            return Menu::find($menuId);
+        });
+        return $menu;
     }
 
     protected function copyDefaultView($viewPath)

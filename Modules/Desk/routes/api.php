@@ -20,5 +20,6 @@ use Modules\Desk\Http\Controllers\PageController;
 // });
 
 Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () {
-    Route::post('load-page', [PageController::class, 'loadPage'])->name('/api/load-page');
+    Route::post('load-page', [PageController::class, 'loadPage'])->name('load-page');
+    Route::post('main-table', [PageController::class, 'mainTable'])->name('main-table');
 });

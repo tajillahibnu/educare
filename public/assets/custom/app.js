@@ -4,19 +4,51 @@
  * yang sering digunakan untuk membuat modul atau ruang lingkup lokal untuk variabel dan fungsi
  */
 var APP = ((config) => {
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    axios.defaults.baseURL = '/api'; // Set base URL untuk semua permintaan
+
     return {
+        // Fungsi umum untuk permintaan data menggunakan Axios
+        axiosRequest: (config) => {
+            config = $.extend(true, {
+                method: 'post', // Metode default untuk penyimpanan adalah POST
+            }, config);
+            return axios(config)
+                .then(response => {
+                    console.log("Response data:", response.data);
+                    return response.data;
+                })
+                .catch(error => {
+                    console.error("Axios Error:", error);
+                    throw error;
+                });
+        },
+
+        // Fungsi untuk menyimpan data, bisa menggunakan method POST
         save: (config) => {
+            config = $.extend(true, {
+                method: 'post', // Metode default untuk penyimpanan adalah POST
+            }, config);
+
             console.log("Saving with config:", config);
-            // logika untuk menyimpan data
+            return axios.post(config.url, config.data)
+                .then(response => {
+                    console.log("Data saved successfully:", response.data);
+                    return response.data;
+                })
+                .catch(error => {
+                    console.error("Error while saving data:", error);
+                    throw error;
+                });
         }
     };
 })({ defaultOption: true }); // Mengirimkan objek config saat IIFE dipanggil
+
 
 // Menggunakan metode save
 
 
 function checkSession() {
-    console.log('Session is active');
     // axios.get('/session/check')
     //     .then(function (response) {
     //         if (response.data.loggedIn) {

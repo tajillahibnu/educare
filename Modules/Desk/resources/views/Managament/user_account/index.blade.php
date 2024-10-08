@@ -1,1 +1,42 @@
-<h1>asdasd</h1>
+<div class="row">
+    <!-- On route vehicles Table -->
+    <div class="col-12 order-5">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="card-title mb-0">
+                    <h5 class="m-0 me-2">Daftar Akun User</h5>
+                </div>
+                <div class="dropdown">
+                    <button
+                        class="btn btn-text-secondary rounded-pill text-muted border-0 p-2 me-n1"
+                        type="button"
+                        id="routeVehicles"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="ti ti-dots-vertical ti-md text-muted"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="routeVehicles">
+                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                        <!-- <a class="dropdown-item" href="javascript:void(0);">Select All</a> -->
+                        <!-- <a class="dropdown-item" href="javascript:void(0);">Share</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="card-datatable table-responsive">
+                <table id="main-table" class="dt-route-vehicles table table-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nama</th>
+                            <th>Tipe</th>
+                            <th>Status</th>
+                            <th class="w-20">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--/ On route vehicles Table -->
+</div>
