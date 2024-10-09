@@ -21,5 +21,5 @@ use Modules\Desk\Http\Controllers\PageController;
 
 Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () {
     Route::post('load-page', [PageController::class, 'loadPage'])->name('load-page');
-    Route::post('main-table', [PageController::class, 'mainTable'])->name('main-table');
+    require_once(__DIR__ . '/api/management/user.php');
 });

@@ -1,1 +1,1 @@
-<script src="{{asset('/')}}modules/desk/Managament/user_account.js"></script>
+<script src="{{asset('/')}}modules/desk/managament/user.js"></script>

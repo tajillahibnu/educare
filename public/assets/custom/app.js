@@ -8,6 +8,35 @@ var access_token = 'admin';
 var APP = ((config) => {
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     axios.defaults.baseURL = '/api'; // Set base URL untuk semua permintaan
+    // Pemetaan error kode ke tindakan yang sesuai
+    const errorHandlers = {
+        401: () => {
+            alert("Sesi Anda telah berakhir. Anda akan diarahkan ke halaman login.");
+            window.location.reload();
+        },
+        403: () => alert("Anda tidak memiliki izin untuk mengakses sumber daya ini."),
+        419: () => {
+            alert("Sesi Anda telah kedaluwarsa. Halaman akan dimuat ulang.");
+            window.location.reload();
+        },
+    };
+    // Tambahkan interceptor respons Axios untuk menangani status kode otentikasi
+    axios.interceptors.response.use(
+        function (response) {
+            // Jika respons berhasil, langsung kembalikan respons
+            return response;
+        },
+        function (error) {
+            if (error.response && errorHandlers[error.response.status]) {
+                // Panggil handler untuk status kode yang sesuai
+                errorHandlers[error.response.status]();
+            } else {
+                // Tampilkan error yang tidak terdaftar
+                console.error("Unhandled Error:", error.response ? error.response.status : error);
+            }
+            return Promise.reject(error);
+        }
+    );
 
     return {
         // Fungsi umum untuk permintaan data menggunakan Axios
@@ -113,7 +142,7 @@ var APP = ((config) => {
                 },
                 // Callback untuk menambahkan kolom dengan '-' jika data tidak ada
                 fnRowCallback: function (row, data, index) {
-                    
+
                 },
 
             };

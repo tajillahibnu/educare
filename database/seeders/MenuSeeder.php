@@ -94,6 +94,7 @@ class MenuSeeder extends Seeder
 
     function Management($id)
     {
+        $order = 1;
         $dd = $id;
         $save['id']    = $id;
         $save['name']  = 'Management';
@@ -111,18 +112,7 @@ class MenuSeeder extends Seeder
         $save['url']        = 'siswa';
         $save['level']      = null;
         $save['type']       = 'admin';
-        $save['menu_order'] = 1;
-        $save['middlewares'] = json_encode(['auth']);
-        Menu::create($save);
-
-        $dd = $dd + 1;
-        $save['id']         = $dd;
-        $save['parent_id']  = $id;
-        $save['name']       = 'Guru';
-        $save['url']        = 'guru';
-        $save['level']      = null;
-        $save['type']       = 'admin';
-        $save['menu_order'] = 1;
+        $save['menu_order'] = $order++;
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
@@ -133,8 +123,10 @@ class MenuSeeder extends Seeder
         $save['url']        = 'karyawan';
         $save['level']      = null;
         $save['type']       = 'admin';
-        $save['menu_order'] = 1;
+        $save['menu_order'] = $order++;
         $save['middlewares'] = json_encode(['auth']);
+        $save['view_path']       = 'managament/karyawan/';
+        $save['view_file']       = 'index';
         Menu::create($save);
 
         $dd = $dd + 1;
@@ -144,9 +136,22 @@ class MenuSeeder extends Seeder
         $save['url']        = 'user_account';
         $save['level']      = null;
         $save['type']       = 'admin';
-        $save['menu_order'] = 1;
+        $save['menu_order'] = $order++;
         $save['middlewares'] = json_encode(['auth']);
         $save['view_path']       = 'managament/user_account/';
+        $save['view_file']       = 'index';
+        Menu::create($save);
+
+        $dd = $dd + 1;
+        $save['id']         = $dd;
+        $save['parent_id']  = $id;
+        $save['name']       = 'Menu';
+        $save['url']        = 'menu';
+        $save['level']      = null;
+        $save['type']       = 'admin';
+        $save['menu_order'] = $order++;
+        $save['middlewares'] = json_encode(['auth']);
+        $save['view_path']       = 'managament/menu/';
         $save['view_file']       = 'index';
         Menu::create($save);
     }
