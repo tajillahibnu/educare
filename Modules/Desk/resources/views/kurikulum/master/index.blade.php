@@ -1,10 +1,10 @@
-<div class="row">
+<div id="page-main" class="row">
     <!-- On route vehicles Table -->
     <div class="col-12 order-5">
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Daftar Akun User</h5>
+                    <h5 class="m-0 me-2">Daftar Kurikulum</h5>
                 </div>
                 <div class="dropdown">
                     <button
@@ -17,8 +17,8 @@
                         <i class="ti ti-dots-vertical ti-md text-muted"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="routeVehicles">
+                        <a class="dropdown-item" href="javascript:newData(0);">Tambah Kurikulum</a>
                         <a class="dropdown-item" href="javascript:APP.reloadTable();">Refresh</a>
-                        <!-- <a class="dropdown-item" href="javascript:void(0);">Select All</a> -->
                         <!-- <a class="dropdown-item" href="javascript:void(0);">Share</a> -->
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
+                            <th>Kurikulum</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,3 +38,8 @@
     </div>
     <!--/ On route vehicles Table -->
 </div>
+<div id="page-detail" style="display: none;">
+    @include('desk::kurikulum.master.detail')
+</div>
+
+@include('desk::kurikulum.master.modal')

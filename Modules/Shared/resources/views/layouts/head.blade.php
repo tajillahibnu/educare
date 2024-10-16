@@ -40,7 +40,9 @@
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/animate-css/animate.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/toastr/toastr.css" />
     <!-- Page CSS -->
 
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/css/pages/app-logistics-dashboard.css" />

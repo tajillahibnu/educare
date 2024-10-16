@@ -23,11 +23,13 @@ class UserController extends Controller
 
     public function mainTable(Request $request)
     {
+        $searchKeyword = $request->input('search.value'); // Mengambil keyword dari DataTables
         return DataTableService::draw('users')
             ->select(['users.id', 'users.name', 'users.email', 'roles.name AS role_name'])
             ->join('roles', [
                 ['roles.id', '=', 'users.primary_role_id'],
             ])
+            ->showQueries(true)
             // ->where('users.id','IN',['1','2'])
             ->toJson();
     }

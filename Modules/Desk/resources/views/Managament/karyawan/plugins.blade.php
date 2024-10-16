@@ -1,1 +1,1 @@
-<script src="{{asset('/')}}modules/desk/managament/karyawan.js"></script>
+<script src="{{asset('/')}}modules/desk/managament/pegawai.js"></script>

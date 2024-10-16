@@ -65,6 +65,44 @@ trait ApiResponseTrait
     }
 
     /**
+     * Add data to the response with a custom key.
+     *
+     * @param mixed $data
+     * @param bool $separate
+     * @param string $key
+     * @return $this
+     */
+    public function services($data, $separate = false, $key = 'data')
+    {
+        if (!empty($data['success'])) {
+            $this->success($data['success']);
+            // unset($data['success']);
+        }
+        
+        if (!empty($data['message'])) {
+            $this->message($data['message']);
+            unset($data['message']);
+        }
+
+        if (!empty($data['statusCode'])) {
+            $this->statusCode($data['statusCode']);
+            unset($data['statusCode']);
+        }
+
+        if ($separate) {
+            // Jika `true`, tambahkan data sebagai properti terpisah
+            foreach ($data as $k => $value) {
+                $this->response[$k] = $value;
+            }
+        } else {
+            // Jika `false`, gunakan kunci yang ditentukan untuk menyimpan data
+            $this->response[$key] = $data;
+        }
+
+        return $this;
+    }
+
+    /**
      * Set the API version.
      *
      * @param string $version
@@ -148,7 +186,7 @@ trait ApiResponseTrait
         if (empty($this->response['data'])) {
             unset($this->response['data']);
         }
-
+        
         // Jika ada error, set success menjadi false
         if ($this->response['error'] !== null) {
             $this->response['success'] = false;
@@ -159,12 +197,17 @@ trait ApiResponseTrait
         }
 
         // Hapus kunci 'status_code' jika tidak disetel
-        if (!isset($this->response['status_code'])) {
+        if (!isset($this->response['statusCode'])) {
             $statusCode = $this->response['success'] ? 200 : 400;
         } else {
-            $statusCode = $this->response['status_code'];
+            $statusCode = $this->response['statusCode'];
         }
-        unset($this->response['status_code']);
+        unset($this->response['statusCode']);
+        
+        if ($statusCode) {
+            $this->response['success'] = false;
+            unset($this->response['data']['success']);
+        }
 
         return response()->json($this->response, $statusCode);
     }

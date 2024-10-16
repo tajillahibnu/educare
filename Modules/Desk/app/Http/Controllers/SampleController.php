@@ -44,15 +44,20 @@ class PageController extends Controller
         // return DataTables::of($data)
         //     ->addColumn('action', function ($detail) {
         //         return '
-        //         <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-outline-primary btn-flex btn-center btn-sm menu-dropdown" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i class="fa fa-gear"></i></a>
-        //         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true" data-popper-placement="bottom-end">
-        //             <div class="menu-item px-3">
-        //                 <a href="javascript:void(0);" data-permision="mapel-update" onclick="onView(this)" data-param="' . base64_encode(json_encode($detail)) . '" class="menu-link px-3">Edit</a>
-        //             </div>
-        //             <div class="menu-item px-3">
-        //                 <a href="javascript:void(0);" data-permision="mapel-delete" onclick="onDelete(this)" data-param="' . base64_encode(json_encode($detail)) . '" class="menu-link px-3">Delete</a>
-        //             </div>
-        //         </div>
+//         <div class="btn-group">
+//     <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow waves-effect waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+//     <i class="ti ti-dots-vertical"></i>
+//     </button>
+//     <ul class="dropdown-menu dropdown-menu-end" style="">
+//     <li><a class="dropdown-item waves-effect" href="javascript:void(0);">Action</a></li>
+//     <li><a class="dropdown-item waves-effect" href="javascript:void(0);">Another action</a></li>
+//     <li><a class="dropdown-item waves-effect" href="javascript:void(0);">Something else here</a></li>
+//     <li>
+//         <hr class="dropdown-divider">
+//     </li>
+//     <li><a class="dropdown-item waves-effect" href="javascript:void(0);">Separated link</a></li>
+//     </ul>
+// </div>
         //         ';
         //     })->toJson();
 

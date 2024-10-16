@@ -5,7 +5,7 @@ $(() => {
 mainTable = () => {
     APP.initTable({
         el: '#maintable', // ID atau kelas elemen tabel HTML
-        url: `${BASE_URL}/api/desk/management/user/main-table`, // URL endpoint API untuk mengambil data
+        url: `${BASE_URL}/api/desk/master/role/main-table`, // URL endpoint API untuk mengambil data
         columnDefs: [
             {
                 targets: 1,
@@ -16,9 +16,8 @@ mainTable = () => {
             },
             {
                 targets: 2,
-                data: 'roles.name',
                 render: function (data, type, full, meta) {
-                    return full['role_name'];
+                    return full['action'];
                 },
             },
         ]

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Daftar Akun User</h5>
+                    <h5 class="m-0 me-2">Daftar Role</h5>
                 </div>
                 <div class="dropdown">
                     <button

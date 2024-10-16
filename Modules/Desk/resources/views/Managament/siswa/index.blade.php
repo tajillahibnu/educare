@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Daftar Akun User</h5>
+                    <h5 class="m-0 me-2">Daftar Siswa</h5>
                 </div>
                 <div class="dropdown">
                     <button
@@ -28,7 +28,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>NIS</th>
                             <th>Nama</th>
+                            <th>P/L</th>
                             <th>Action</th>
                         </tr>
                     </thead>

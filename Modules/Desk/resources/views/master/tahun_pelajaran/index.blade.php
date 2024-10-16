@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Daftar Akun User</h5>
+                    <h5 class="m-0 me-2">Daftar Tahun Akademik</h5>
                 </div>
                 <div class="dropdown">
                     <button
@@ -17,8 +17,8 @@
                         <i class="ti ti-dots-vertical ti-md text-muted"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="routeVehicles">
+                        <a class="dropdown-item" href="javascript:newData(0);">Tambah Mapel</a>
                         <a class="dropdown-item" href="javascript:APP.reloadTable();">Refresh</a>
-                        <!-- <a class="dropdown-item" href="javascript:void(0);">Select All</a> -->
                         <!-- <a class="dropdown-item" href="javascript:void(0);">Share</a> -->
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
+                            <th>Tahun Akademik</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -37,4 +37,29 @@
         </div>
     </div>
     <!--/ On route vehicles Table -->
+</div>
+
+<div class="modal fade show" id="modal-main" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-simple">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0;margin: 0;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 0;margin: 0;">
+                <h4>Form Data</h4>
+                <form id="formMain" class="row" method="post" action="javascript:onSaveIt('formMain')">
+                    <div class="mb-4">
+                        <label class="form-label">Tahun Akademik</label>
+                        <input type="text" class="form-control" id="year" name="year">
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary me-3 waves-effect waves-light">Submit</button>
+                        <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal" aria-label="Close">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

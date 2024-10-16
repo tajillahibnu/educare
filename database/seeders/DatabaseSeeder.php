@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClassModel;
+use App\Models\Employee;
+use App\Models\Student;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,6 +18,9 @@ class DatabaseSeeder extends Seeder
     {
         
         User::factory(10)->create();
+        Employee::factory(10)->create();
+        ClassModel::factory(5)->create();
+        Student::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',
@@ -28,6 +34,8 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             PermissionSeeder::class,
             MenuRolePermissionSeeder::class,
+            MapelSeeder::class,
+            AcademicYearSeeder::class,
         ]);
 
         
