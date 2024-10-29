@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             BahasaSeeder::class,
+            TingkatSeeder::class,
             RoleSeeder::class,
             RoleUserSeeder::class,
             MenuSeeder::class,
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
             MenuRolePermissionSeeder::class,
             MapelSeeder::class,
             AcademicYearSeeder::class,
+            KelompokMapelSeeder::class,
         ]);
 
         

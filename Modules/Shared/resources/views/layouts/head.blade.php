@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/animate-css/animate.css" />
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/toastr/toastr.css" />
+    <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/select2/select2.css" />
     <!-- Page CSS -->
 
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/css/pages/app-logistics-dashboard.css" />

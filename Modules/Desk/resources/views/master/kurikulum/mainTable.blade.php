@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="card-title mb-0">
+            <h5 class="m-0 me-2">Daftar Kurikulum</h5>
+        </div>
+        <div class="dropdown">
+            <button
+                class="btn btn-text-secondary rounded-pill text-muted border-0 p-2 me-n1"
+                type="button"
+                id="routeVehicles"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="ti ti-dots-vertical ti-md text-muted"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="routeVehicles">
+                <a class="dropdown-item" href="javascript:newData(0);">Tambah Kurikulum</a>
+                <a class="dropdown-item" href="javascript:APP.reloadTable();">Refresh</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-datatable table-responsive">
+        <table id="maintable" class="dt-route-vehicles table table-sm">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kurikulum</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

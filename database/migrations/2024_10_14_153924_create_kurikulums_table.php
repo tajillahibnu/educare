@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('kurikulums', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Nama Kurikulum
-            $table->foreignId('academic_year_id')->constrained()->onDelete('cascade'); // Relasi ke Tahun Akademik
-            $table->foreignId('semester_id')->constrained()->onDelete('cascade'); // Relasi ke Semester
+            // $table->foreignId('academic_year_id')->constrained()->onDelete('cascade'); // Relasi ke Tahun Akademik
             $table->boolean('is_active')->default(false); // Status aktif atau tidak
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

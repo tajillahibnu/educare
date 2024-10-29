@@ -1,8 +1,18 @@
 php artisan module:make Blog
 php artisan module:publish --all
 php artisan migrate:fresh --seed
+php artisan make:model Rombel -m;  
 
 php artisan make:observer MenuObserver --model=Menu
+
+php artisan module:make-repository MapelRepository Desk
+
+php artisan module:make-controller MapelController Desk
+php artisan module:make-service MapelService Mapel
+php artisan module:make-repository KurikulumRepository Desk
+php artisan module:make-request MapelRequest Mapel
+php artisan module:make-migration create_mapels_table Mapel
+php artisan module:make-test MapelTest Mapel --unit
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 

@@ -117,13 +117,13 @@ class MenuSeeder extends Seeder
         $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
-        $save['name']       = 'Master Kurikulum';
+        $save['name']       = 'Semester';
         $save['url']        = null;
         $save['level']      = null;
         $save['type']       = 'admin';
         $save['menu_order'] = $order++;
         $save['middlewares'] = json_encode(['auth']);
-        $save['view_path']       = 'kurikulum/master/';
+        $save['view_path']       = 'kurikulum/semester/';
         $save['view_file']       = 'index';
         Menu::create($save);
 
@@ -250,6 +250,18 @@ class MenuSeeder extends Seeder
         $save['middlewares'] = json_encode(['auth']);
         Menu::create($save);
 
+        $dd = $dd + 1;
+        $save['id']         = $dd;
+        $save['parent_id']  = $id;
+        $save['name']       = 'Kurikulum';
+        $save['url']        = null;
+        $save['level']      = null;
+        $save['type']       = 'admin';
+        $save['menu_order'] = $order++;
+        $save['middlewares'] = json_encode(['auth']);
+        $save['view_path']       = 'master/kurikulum/';
+        $save['view_file']       = 'index';
+        Menu::create($save);
         $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Daftar Kurikulum</h5>
+                    <h5 class="m-0 me-2">Daftar Semester</h5>
                 </div>
                 <div class="dropdown">
                     <button
@@ -39,7 +39,7 @@
     <!--/ On route vehicles Table -->
 </div>
 <div id="page-detail" style="display: none;">
-    @include('desk::kurikulum.master.detail')
+    @include('desk::kurikulum.semester.detail')
 </div>
 
-@include('desk::kurikulum.master.modal')
+@include('desk::kurikulum.semester.modal')

@@ -88,7 +88,7 @@ var APP = ((config) => {
                 config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
 
-            console.log(config.headers)
+            // console.log(config.headers)
 
             return axios(config)
                 .then(response => {
@@ -222,11 +222,19 @@ var APP = ((config) => {
         reloadTable: (config) => {
             config = $.extend(true, {
                 el: '#maintable',
+                // tambahkan default URL jika diperlukan
             }, config);
 
             // Ambil instance DataTable berdasarkan elemen yang diberikan
             var dataTable = $(config.el).DataTable();
-            dataTable.ajax.reload(null, false); // Mereload data tanpa mengganti halaman
+
+            // Atur ulang URL hanya jika berbeda dari konfigurasi awal
+            if (config.url && dataTable.ajax.url() !== config.url) {
+                dataTable.ajax.url(config.url).load(null, false); // set URL dan reload tanpa ganti halaman
+            } else {
+                dataTable.ajax.reload(null, false); // reload data tanpa ganti halaman
+            }
+
         },
         // Fungsi untuk menghancurkan DataTable
         destroyTable: (config) => {
@@ -263,6 +271,56 @@ var APP = ((config) => {
             );
             // Mengembalikan promise untuk mendukung penggunaan .then di luar
             return Swal.fire(config);
+        },
+        combov1: (config) => {
+            config = $.extend(true, {
+                el: ['#comboId'],
+                url: BASE_URL,
+                data: {},
+                method: "post",
+                fild_id: '',
+                fild_name: '',
+                selected: '',
+                dropdownParent: '',
+                placeholder: 'Select value',
+                custom: false,
+                autoselect: true,
+                callback: function (response) { }
+            }, config);
+
+            config.el.forEach(selector => {
+                $(selector).empty().append('<option></option>');
+            });
+
+            APP.axiosRequest({
+                url: config.url,
+                data: config.data,
+            }).then(response => {
+                const data = response.data;
+                config.el.forEach(selector => {
+                    data.forEach(item => {
+                        const optionText = Array.isArray(config.fild_name)
+                            ? config.fild_name.map(f => item[f]).join(' ')
+                            : item[config.fild_name];
+
+                        $(selector).append(`<option value="${item[config.fild_id]}">${optionText}</option>`);
+                    });
+
+                    // Auto-select opsi pertama jika config.autoselect diaktifkan
+                    if (config.autoselect && data.length > 0) {
+                        $(selector).val(data[0][config.fild_id]).trigger('change');
+                    }
+
+                    // Jika custom select2 diaktifkan, lakukan inisialisasi select2
+                    $(selector).select2({
+                        placeholder: config.placeholder,
+                        dropdownParent: config.dropdownParent ? $(config.dropdownParent) : undefined
+                    });
+                });
+            }).catch(error => {
+                console.error("Fetch error:", error);
+            });
+
         }
     };
 })({ defaultOption: true }); // Mengirimkan objek config saat IIFE dipanggil

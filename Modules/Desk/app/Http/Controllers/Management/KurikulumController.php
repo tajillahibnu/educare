@@ -7,73 +7,58 @@ use App\Services\DataTableService;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use Exception;
-use Modules\Desk\Services\Master\MapelServices;
+use Illuminate\Support\Facades\DB;
+use Modules\Desk\Services\Kurikulum\KelompokMapelService;
+use Modules\Desk\Services\Kurikulum\MapelServices as KurikulumMapelServices;
+use Modules\Desk\Services\KurikulumService;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+// use Modules\Desk\Services\Master\MapelServices;
 
 class KurikulumController extends Controller
 {
     use ApiResponseTrait;
+    protected $mainservices;
+    protected $KelompokMapelService;
     protected $mapelServices;
-    public function __construct(MapelServices $mapelServices)
-    {
+    public function __construct(
+        KurikulumService $mainservices,
+        KelompokMapelService $KelompokMapelService,
+        KurikulumMapelServices $mapelServices,
+    ) {
+        $this->mainservices = $mainservices;
+        $this->KelompokMapelService = $KelompokMapelService;
         $this->mapelServices = $mapelServices;
     }
 
-    public function store(Request $request)
+
+    public function tableMapel(Request $request)
     {
-        $data = $request->input();
+        return $this->mapelServices->table($request->kelompok_id);
+    }
+
+    public function tableKelompokMapel(Request $request)
+    {
+        $filter = [];
+        $filter['kurikulum_id'] = $request->kurikulum_id;
+        return $this->KelompokMapelService->table($filter);
+    }
+
+    public function show(Request $request): JsonResponse
+    {
         try {
-            $r = $this->mapelServices->store();
+            $res = $this->mainservices->getKurikulumId($request->kurikulum_id);
             return $this->apiResponse()
-                ->services($r)
+                ->services($res)
                 ->send();
         } catch (\Throwable $th) {
-            throw new Exception('Internal server malfunction.');
+            throw new Exception($th->getMessage());
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        $data = $request->input();
-        try {
-            $r = $this->mapelServices->update($id);
-            return $this->apiResponse()
-                ->services($r)
-                ->send();
-        } catch (\Throwable $th) {
-            throw new Exception('Internal server malfunction.');
-        }
-    }
-
-    public function delete(Request $request)
-    {
-        try {
-            $id = $request->input('id');
-            $r = $this->mapelServices->delete($id);
-            return $this->apiResponse()
-                ->services($r)
-                ->send();
-        } catch (\Throwable $th) {
-            throw new Exception('Internal server malfunction.');
-        }
-    }
 
     public function mainTable(Request $request)
     {
-        return DataTableService::draw('kurikulums')
-            // ->where('deleted_at', 'IS', NULL)
-            ->addColumn('action', function ($detail) {
-                // <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></button>
-                return '
-                <div class="d-inline-block text-nowrap">
-                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light" data-permision="user-update" onclick="onDetailPage(this)" data-params="' . base64_encode(json_encode($detail)) . '"><i class="ti ti-eye ti-md"></i></button>
-                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti ti-dots-vertical ti-md"></i></button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                        <a class="dropdown-item waves-effect" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit</a>
-                        <a class="dropdown-item waves-effect" href="javascript:void(0);" data-permision="user-update" onclick="deleteData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Delete</a>
-                    </div>
-                </div>
-                ';
-            })
-            ->toJson();
+        return $this->mainservices->table();
     }
 }

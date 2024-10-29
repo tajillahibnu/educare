@@ -21,6 +21,20 @@ class AcademicYearSeeder extends Seeder
             'is_active' => true
         ]);
 
+        // Menambah data Kurikulum
+        Kurikulum::create([
+            'name' => 'Kurikulum 2013',
+            // 'academic_year_id' => $academicYear->id,
+            // 'semester_id' => $semester1->id,
+            'is_active' => true
+        ]);
+        Kurikulum::create([
+            'name' => 'Kurikulum Merdeka',
+            // 'academic_year_id' => $academicYear->id,
+            // 'semester_id' => $semester1->id,
+            'is_active' => true
+        ]);
+
         // Menambah data Semester untuk Tahun Akademik tersebut
         $semester1 = Semester::create([
             'name' => 'Ganjil',
@@ -32,14 +46,6 @@ class AcademicYearSeeder extends Seeder
             'name' => 'Genap',
             'is_active' => false,
             'academic_year_id' => $academicYear->id
-        ]);
-
-        // Menambah data Kurikulum
-        Kurikulum::create([
-            'name' => 'Kurikulum 2013',
-            'academic_year_id' => $academicYear->id,
-            'semester_id' => $semester1->id,
-            'is_active' => true
         ]);
     }
 }
