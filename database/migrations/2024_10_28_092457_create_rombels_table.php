@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rombels', function (Blueprint $table) {
             $table->id();
-            $table->string('kode', 32)->nullable();
+            $table->string('code', 32)->nullable();
             $table->string('name', 150);
             $table->string('tingkat', 150)->nullable();
             $table->string('romawi', 8)->nullable();

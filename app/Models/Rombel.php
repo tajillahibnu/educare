@@ -10,7 +10,7 @@ class Rombel extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'kode',
+        'code',
         'name',
         'tingkat',
         'romawi',

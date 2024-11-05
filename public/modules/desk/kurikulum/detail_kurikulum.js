@@ -88,6 +88,9 @@ tableKelas = () => {
         el: '#tableKelas', // ID atau kelas elemen tabel HTML
         url: `${BASE_URL_MENU}kelas/table`, // URL endpoint API untuk mengambil data
         data: { kurikulum_id: targetID },
+        order:[
+            [2,'desc']
+        ],
         columnDefs: [
             {
                 targets: 1,
@@ -98,9 +101,9 @@ tableKelas = () => {
             },
             {
                 targets: 2,
-                data: 'name',
+                data: 'tingkat',
                 render: function (data, type, full, meta) {
-                    return full['name'];
+                    return full['tingkat'];
                 },
             },
             {

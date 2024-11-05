@@ -30,7 +30,9 @@ class KelasService
         try {
             if(!empty($data['tingkat_id'])){
                 $getTingkat = $this->repositoryTingkat->find($data['tingkat_id']);
-                $data['romawi'] = $getTingkat->romawi;
+                $data['tingkat']    = $getTingkat->name;
+                $data['romawi']     = $getTingkat->romawi;
+                $data['code']       = $getTingkat->romawi.'-'.str_replace(' ','-',$data['name']);
             }
 
 
@@ -52,6 +54,7 @@ class KelasService
                 $getTingkat = $this->repositoryTingkat->find($data['tingkat_id']);
                 $data['tingkat']    = $getTingkat->name;
                 $data['romawi']     = $getTingkat->romawi;
+                $data['code']       = $getTingkat->romawi.'-'.str_replace(' ','-',$data['name']);
             }
 
             $response['data'] = $this->repository->update($id, $data);

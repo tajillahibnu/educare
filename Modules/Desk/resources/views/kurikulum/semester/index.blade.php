@@ -1,6 +1,26 @@
 <div id="page-main" class="row">
     <!-- On route vehicles Table -->
-    <div class="col-12 order-5">
+    <div class="col-3 order-0">
+        <div class="card mb-6">
+            <div class="card-body">
+                <h5 class="mb-4">Filter</h5>
+                <select class="form-select mb-6" id="acceptPaymentsVia">
+                    <option value="Bank Account">Bank Account</option>
+                    <option value="Paypal">Paypal</option>
+                    <option value="Card">Credit/Debit Card</option>
+                    <option value="UPI Transfer">UPI Transfer</option>
+                </select>
+                <select class="form-select mb-6" id="acceptPaymentsVia">
+                    <option value="Bank Account">Bank Account</option>
+                    <option value="Paypal">Paypal</option>
+                    <option value="Card">Credit/Debit Card</option>
+                    <option value="UPI Transfer">UPI Transfer</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-9 order-1">
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-title mb-0">

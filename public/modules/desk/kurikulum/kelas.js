@@ -1,5 +1,6 @@
 var kelas_id = '';
 onNewKelas = () => {
+    kelas_id = '';
     // loadComboOptions();
     APP.combov1({
         el: ['#tingkat_id'],
@@ -73,30 +74,30 @@ deleteKelas = (el) => {
     });
 }
 
-function loadComboOptions() {
-    APP.axiosRequest({
-        url: `${BASE_URL_MENU}kelas/getTingkat`,
-        // data: {
-        //     id: data['id']
-        // },
-    }).then(response => {
-        const comboData = response.data;
-        const $combo = $('#tingkat_id'); // Selector untuk elemen select
+// function loadComboOptions() {
+//     APP.axiosRequest({
+//         url: `${BASE_URL_MENU}kelas/getTingkat`,
+//         // data: {
+//         //     id: data['id']
+//         // },
+//     }).then(response => {
+//         const comboData = response.data;
+//         const $combo = $('#tingkat_id'); // Selector untuk elemen select
 
-        // Kosongkan data combo terlebih dahulu
-        $combo.empty().append('<option value="">Select an option</option>');
+//         // Kosongkan data combo terlebih dahulu
+//         $combo.empty().append('<option value="">Select an option</option>');
 
-        // Tambahkan setiap data ke dalam select
-        comboData.forEach(item => {
-            $combo.append(`<option value="${item.id}">${item.name}</option>`);
-        });
+//         // Tambahkan setiap data ke dalam select
+//         comboData.forEach(item => {
+//             $combo.append(`<option value="${item.id}">${item.name}</option>`);
+//         });
 
-        // Inisialisasi select2 jika diperlukan
-        $combo.select2({
-            placeholder: 'Select an option',
-            allowClear: true
-        });
-    }).catch(error => {
-        console.error("Fetch error:", error);
-    });
-}
+//         // Inisialisasi select2 jika diperlukan
+//         $combo.select2({
+//             placeholder: 'Select an option',
+//             allowClear: true
+//         });
+//     }).catch(error => {
+//         console.error("Fetch error:", error);
+//     });
+// }

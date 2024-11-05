@@ -55,7 +55,7 @@ class KelasController extends Controller
 
     public function comboTingkat()
     {
-        $r = $this->ComboServices->getComboOptions();
+        $r = $this->ComboServices->getComboOptions(['tipe' => 'SMP']);
         return $this->apiResponse()
             ->services($r)
             ->send();

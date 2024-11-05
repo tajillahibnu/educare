@@ -5,10 +5,10 @@
     </div>
     <div class="d-flex align-content-center flex-wrap gap-4">
         <div class="d-flex gap-4">
-            <button id="cancelButton" class="btn btn-label-danger">Cancel</button>
-            <button class="btn btn-label-primary">Save draft</button>
+            <button id="cancelButton" class="btn btn-label-danger">Back</button>
+            <!-- <button class="btn btn-label-primary">Save draft</button> -->
         </div>
-        <button type="submit" class="btn btn-primary">Publish product</button>
+        <!-- <button type="submit" class="btn btn-primary">Publish product</button> -->
     </div>
 </div>
 
@@ -59,7 +59,7 @@
                 <li class="nav-item">
                     <a class="nav-link" onclick="showTab(this)" data-tabName="kelas" href="javascript:void(0);"><i class="ti ti-lock ti-sm me-1_5"></i>Kelas</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a class="nav-link" onclick="showTab(this)" href="javascript:void(0)"><i class="ti ti-user ti-sm me-1_5"></i>Semester</a>
                 </li>
                 <li class="nav-item">
