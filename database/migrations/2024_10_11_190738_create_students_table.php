@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('student_user_id')->unsigned()->nullable();
+            $table->foreign('student_user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->string('nis')->unique(); // Nomor Induk Siswa
             $table->string('name'); // Nama siswa
             $table->date('date_of_birth'); // Tanggal lahir
@@ -21,7 +23,11 @@ return new class extends Migration
             $table->string('phone_number')->nullable(); // Nomor telepon
             $table->string('email')->unique()->nullable(); // Email, opsional
             $table->string('photo')->nullable(); // Foto siswa, opsional
+            $table->string('tahun_masuk',9)->nullable(); // Foto siswa, opsional
+            $table->string('tahun_keluar',9)->nullable(); // Foto siswa, opsional
             $table->boolean('is_active')->default(true); // Status aktif/tidak aktif
+            $table->unsignedBigInteger('tingkat_id')->unsigned()->nullable();
+            $table->foreign('tingkat_id')->references('id')->on('tingkats')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes(); // Soft delete untuk menghapus data tanpa menghilangkan catatan
         });

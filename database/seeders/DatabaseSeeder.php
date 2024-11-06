@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        User::factory(10)->create();
-        Employee::factory(10)->create();
-        ClassModel::factory(5)->create();
-        Student::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'admin@demo.com',
         ]);
+        
+        User::factory(20)->create();
+        Employee::factory(10)->create();
+        ClassModel::factory(5)->create();
+        Student::factory(10)->create();
+
 
         $this->call([
             BahasaSeeder::class,
@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         
-        $affectedRows = User::where(['primary_role_id' => null])->update(['primary_role_id' => 2]);
+        $affectedRows = User::where(['primary_role_id' => null])->where('id', '<=', '11')->update(['primary_role_id' => 2]);
+        $affectedRows = User::where(['primary_role_id' => null])->where('id', '>', '11')->update(['primary_role_id' => 4]);
+        $affectedRows = User::where(['email' => 'admin@demo.com'])->update(['primary_role_id' => 1]);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Desk\Http\Controllers\DeskController;
+use Modules\Desk\Http\Controllers\Management\UserController;
 use Modules\Desk\Http\Controllers\PageController;
 
 /*
@@ -30,3 +31,4 @@ Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () 
     require_once(__DIR__ . '/api/master/tahunAkademik.php');
 });
 
+// Route::post('cekuser', [UserController::class, 'test'])->name('cekuser');

@@ -1,1 +1,1 @@
-<script src="{{asset('/')}}modules/desk/managament/user.js"></script>
+<script src="{{asset('/')}}modules/desk/management/akun_user.js"></script>

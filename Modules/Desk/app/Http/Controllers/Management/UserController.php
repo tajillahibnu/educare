@@ -3,34 +3,55 @@
 namespace Modules\Desk\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Services\DataTableService;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-// use Modules\Desk\Services\ShowPageService;
-use Yajra\DataTables\Facades\DataTables;
+use Modules\Desk\Services\ComboService;
+use Modules\Desk\Services\Management\AkunUserService;
 
 class UserController extends Controller
 {
     use ApiResponseTrait;
+    protected $mainServices;
+    protected $comboServices;
+    public function __construct(
+        AkunUserService $mainServices,
+        ComboService $comboServices
+    ) {
+        $this->mainServices = $mainServices;
+        $this->comboServices = $comboServices;
+    }
 
-    // protected ShowPageService $pageService;
+    public function update(Request $request, $id)
+    {
+        $save['name'] = $request->name;
+        $save['primary_role_id'] = $request->main_role;
+        $r = $this->mainServices->update($id,$save,$request->sub_role);
+        return $this->apiResponse()
+            ->services($r)
+            ->send();
+    }
 
-    // public function __construct(ShowPageService $pageService)
-    // {
-    //     $this->pageService = $pageService;
-    // }
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $r = $this->mainServices->getUserId($id);
+        return $this->apiResponse()
+            ->services($r)
+            ->send();
+    }
+
+    public function comboRole()
+    {
+        $r = [];
+        $r = $this->comboServices->role();
+        return $this->apiResponse()
+            ->services($r)
+            ->send();
+    }
 
     public function mainTable(Request $request)
     {
-        $searchKeyword = $request->input('search.value'); // Mengambil keyword dari DataTables
-        return DataTableService::draw('users')
-            ->select(['users.id', 'users.name', 'users.email', 'roles.name AS role_name'])
-            ->join('roles', [
-                ['roles.id', '=', 'users.primary_role_id'],
-            ])
-            ->showQueries(true)
-            // ->where('users.id','IN',['1','2'])
-            ->toJson();
+        $filter = [];
+        return $this->mainServices->table($filter);
     }
 }

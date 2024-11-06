@@ -16,7 +16,7 @@ class MenuRolePermissionSeeder extends Seeder
     public function run(): void
     {
         $adminRole = Role::where('name', 'Admin')->first();
-        $userRole = Role::where('name', 'User')->first();
+        $userRole = Role::where('name', 'Guru')->first();
 
         $permissions = Permission::all();
 

@@ -6,6 +6,7 @@ use App\Services\DataTableService;
 
 class SiswaService
 {
+
     public function table()
     {
         return DataTableService::draw('students')

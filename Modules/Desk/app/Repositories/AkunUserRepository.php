@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Desk\Repositories\Kurikulum;
-
+namespace Modules\Desk\Repositories;
 use App\Repositories\BaseRepository;
-use App\Models\KelompokMapel as MainModel;
+use App\Models\User as MainModel;
 
 
-class KelompokMapelRepository extends BaseRepository
+class AkunUserRepository extends BaseRepository
 {
     public function __construct(MainModel $model)
     {
