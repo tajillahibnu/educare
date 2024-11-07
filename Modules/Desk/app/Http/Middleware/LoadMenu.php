@@ -16,23 +16,23 @@ class LoadMenu
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            $userRole = Auth::user()->role;
+            $roleActive = session('akses_module');
+            // $sessionUser = Auth::user();
 
-            // if (!session()->has('menus')) {
-                // $menus = $this->menuNav();
-                $menus = Menu::where('type', 'admin')
-                    ->whereNull('parent_id')
-                    ->orderBy('menu_order', 'ASC')
-                    ->get();
-                foreach ($menus as $value) {
-                    $value->name = ucwords($value->name);
-                    $value->sub_menu = $this->subMenuNav($value->id);;
-                }
-                View::share('menus', $menus);
+            // dd($sessionUser);
+            // echo session('user_role');
+            // exit;
 
-                // session(['menus' => $menus]);
-                // session()->put('menus', $menus);
-            // }
+            // $menus = Menu::where('type', 'admin')
+            $menus = Menu::where('type', strtolower($roleActive))
+                ->whereNull('parent_id')
+                ->orderBy('menu_order', 'ASC')
+                ->get();
+            foreach ($menus as $value) {
+                $value->name = ucwords($value->name);
+                $value->sub_menu = $this->subMenuNav($value->id);;
+            }
+            View::share('menus', $menus);
         }
 
         return $next($request);

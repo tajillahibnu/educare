@@ -3,10 +3,12 @@
 namespace Modules\Desk\Services;
 
 use App\Models\Menu;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class ShowPageService
@@ -102,5 +104,22 @@ class ShowPageService
         } else {
             throw new \Exception("Default view file does not exist.");
         }
+    }
+
+    public function changeModule($module)
+    {
+        $module = strtolower($module);
+        $userId = Auth::user()->id;
+
+        $cekRoleUser = RoleUser::where('user_id', $userId)
+            ->where('kode', $module)
+            ->join('roles', 'role_user.role_id', '=', 'roles.id') // Join ke tabel roles
+            ->get();
+        $bStatus = false;
+        if ($cekRoleUser->count() > 0) {
+            $bStatus = true;
+            session()->put('akses_module', $module);
+        }
+        return ['module' => $cekRoleUser, 'status' => $bStatus];
     }
 }

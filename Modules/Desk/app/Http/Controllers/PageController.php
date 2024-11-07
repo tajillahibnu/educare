@@ -17,12 +17,11 @@ use Yajra\DataTables\Facades\DataTables;
 class PageController extends Controller
 {
     use ApiResponseTrait;
+    protected $pageServices;
 
-    protected ShowPageService $pageService;
-
-    public function __construct(ShowPageService $pageService)
+    public function __construct(ShowPageService $pageServices)
     {
-        $this->pageService = $pageService;
+        $this->pageServices = $pageServices;
     }
 
 
@@ -33,12 +32,21 @@ class PageController extends Controller
         $menu = json_decode(decryptData($page), true);
 
         // Panggil service untuk render HTML
-        $html = $this->pageService->show($request);
+        $html = $this->pageServices->show($request);
         // Kembalikan HTML yang sudah dirender sebagai respons
         // $r['html'] = $html['html'];
         // $r['html'] = $html;
         return $this->apiResponse()
             ->data($html, true)
             ->send(200);
+    }
+
+    public function switchModule(Request $request)
+    {
+        $aa = $request->set_module;
+        $r = $this->pageServices->changeModule($aa);
+        return $this->apiResponse()
+            ->services($r)
+            ->send();
     }
 }

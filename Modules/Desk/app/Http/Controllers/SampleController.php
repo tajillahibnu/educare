@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Desk\Services\ShowPageService;
 use Yajra\DataTables\Facades\DataTables;
 
-class PageController extends Controller
+class SampleController extends Controller
 {
     use ApiResponseTrait;
 

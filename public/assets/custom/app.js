@@ -27,6 +27,7 @@ var APP = ((config) => {
             return response;
         },
         function (error) {
+            console.log(error)
             if (error.response) {
                 const status = error.response.status;
 
@@ -92,11 +93,11 @@ var APP = ((config) => {
 
             return axios(config)
                 .then(response => {
-                    console.log("Response data:", response.data);
+                    // console.log("Response data:", response.data);
                     return response.data;
                 })
                 .catch(error => {
-                    console.error("Axios Error:", error);
+                    // console.error("Axios Error:", error);
                     throw error;
                 });
         },
@@ -106,14 +107,14 @@ var APP = ((config) => {
                 method: 'post', // Metode default untuk penyimpanan adalah POST
             }, config);
 
-            console.log("Saving with config:", config);
+            // console.log("Saving with config:", config);
             return axios.post(config.url, config.data)
                 .then(response => {
-                    console.log("Data saved successfully:", response.data);
+                    // console.log("Data saved successfully:", response.data);
                     return response.data;
                 })
                 .catch(error => {
-                    console.error("Error while saving data:", error);
+                    // console.error("Error while saving data:", error);
                     throw error;
                 });
         },
@@ -182,7 +183,7 @@ var APP = ((config) => {
                         if (error.status === 401) {
                             location.reload(); // Reload jika tidak terautentikasi
                         }
-                        console.error('Error fetching data:', error);
+                        // console.error('Error fetching data:', error);
                     },
                 },
                 // Callback untuk menambahkan kolom dengan '-' jika data tidak ada
@@ -246,9 +247,9 @@ var APP = ((config) => {
             if ($.fn.DataTable.isDataTable(config.el)) {
                 var dataTable = $(config.el).DataTable();
                 dataTable.clear().destroy(); // Hancurkan tabel dan hapus data
-                console.log("DataTable destroyed.");
+                // console.log("DataTable destroyed.");
             } else {
-                console.warn("DataTable not initialized, cannot destroy.");
+                // console.warn("DataTable not initialized, cannot destroy.");
             }
         },
         confirm: (config) => {
@@ -318,38 +319,36 @@ var APP = ((config) => {
                     });
                 });
             }).catch(error => {
-                console.error("Fetch error:", error);
+                // console.error("Fetch error:", error);
             });
 
         }
     };
 })({ defaultOption: true }); // Mengirimkan objek config saat IIFE dipanggil
 
-
 // Menggunakan metode save
 
+// function checkSession() {
+//     // axios.get('/session/check')
+//     //     .then(function (response) {
+//     //         if (response.data.loggedIn) {
+//     //             console.log('Session is active');
+//     //             // Sesi masih aktif, lakukan sesuatu
+//     //         } else {
+//     //             console.log('Session is inactive');
+//     //             // Sesi tidak aktif, arahkan pengguna untuk login atau tampilkan pesan
+//     //             // window.location.href = '/login'; // atau tampilkan modal/pesan
+//     //         }
+//     //     })
+//     //     .catch(function (error) {
+//     //         console.error('Error checking session:', error);
+//     //     });
+// }
 
-function checkSession() {
-    // axios.get('/session/check')
-    //     .then(function (response) {
-    //         if (response.data.loggedIn) {
-    //             console.log('Session is active');
-    //             // Sesi masih aktif, lakukan sesuatu
-    //         } else {
-    //             console.log('Session is inactive');
-    //             // Sesi tidak aktif, arahkan pengguna untuk login atau tampilkan pesan
-    //             // window.location.href = '/login'; // atau tampilkan modal/pesan
-    //         }
-    //     })
-    //     .catch(function (error) {
-    //         console.error('Error checking session:', error);
-    //     });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('load')
-    setInterval(checkSession(), 300000); // Cek setiap 5 menit
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     console.log('load')
+//     setInterval(checkSession(), 300000); // Cek setiap 5 menit
+// });
 
 class Queue {
     constructor() {

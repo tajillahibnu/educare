@@ -23,7 +23,7 @@ Route::group(['prefix' => 'desk', 'middleware' => 'guest'], function () {
 
 Route::group(['prefix' => 'desk', 'middleware' => ['auth','loadMenu']], function () {
     Route::get('/', [DeskController::class, 'index'])->name('/');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('desk.dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('desk.dashboard');
 });
 Route::group(['prefix' => 'desk', 'middleware' => ['auth']], function () {
     Route::post('/content', [DeskController::class, 'loadContent'])->name('desk.content');

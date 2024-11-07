@@ -24,8 +24,16 @@ class AkunUserService
         $response['statusCode'] = 400;
         try {
             $response = $this->repository->update($id, $data);
-            $modal = RoleUser::where('user_id', $id)->delete();
+            
+            if (!empty($subRole)) {
+                if (!in_array($data['primary_role_id'], $subRole)) {
+                    $subRole[] = $data['primary_role_id']; // Tambahkan nilai hanya jika belum ada
+                }
+            } else {
+                $subRole[] = $data['primary_role_id']; // Tambahkan nilai hanya jika belum ada
+            }
 
+            $modal = RoleUser::where('user_id', $id)->delete();
             foreach ($subRole as $item) {
                 $model = new RoleUser();
                 $model->user_id  = $id;
@@ -53,7 +61,7 @@ class AkunUserService
             $data = $this->repository->find($id);
             $list = RoleUser::select('role_id')
                 ->where('user_id', $id)
-                ->where('is_primary', '0')
+                // ->where('is_primary', '0')
                 ->get();
             $data['subRole'] = $list->map(function ($item) {
                 return $item->role_id;

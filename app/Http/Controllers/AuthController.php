@@ -14,21 +14,21 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        // $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard');
-        }
+        // if (Auth::attempt($credentials)) {
+        //     return redirect()->route('dashboard');
+        // }
 
-        return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ]);
+        // return back()->withErrors([
+        //     'email' => 'Invalid credentials.',
+        // ]);
     }
 
     public function logout()
     {
-        Auth::logout(); 
-        return redirect('superadmin');
+        // Auth::logout(); 
+        // return redirect('superadmin');
         // return redirect()->route('/superadmin');
     }
 }

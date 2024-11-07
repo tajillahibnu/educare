@@ -25,7 +25,8 @@ class UserController extends Controller
     {
         $save['name'] = $request->name;
         $save['primary_role_id'] = $request->main_role;
-        $r = $this->mainServices->update($id,$save,$request->sub_role);
+        $subRole = empty($request->sub_role) ? [] : $request->sub_role;
+        $r = $this->mainServices->update($id, $save, $subRole);
         return $this->apiResponse()
             ->services($r)
             ->send();

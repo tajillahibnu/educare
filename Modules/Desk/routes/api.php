@@ -22,6 +22,7 @@ use Modules\Desk\Http\Controllers\PageController;
 
 Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () {
     Route::post('load-page', [PageController::class, 'loadPage'])->name('load-page');
+    Route::post('switch-role', [PageController::class, 'switchModule'])->name('switch-role');
     require_once(__DIR__ . '/api/management/user.php');
     require_once(__DIR__ . '/api/management/siswa.php');
     require_once(__DIR__ . '/api/management/pegawai.php');

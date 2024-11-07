@@ -21,7 +21,7 @@
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-                @include('shared::layouts.navbar')
+                @include('desk::layouts.navbar')
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
@@ -55,11 +55,12 @@
 
     @include('shared::layouts.plugins')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script>
+        const BASE_URL = `{{URL('/')}}`;
+    </script>
     <script src="{{asset('/')}}assets/custom/app.js"></script>
     <div id="content-plugins"></div>
     <script>
-        let BASE_URL = `{{URL('/')}}`;
         let menuLinks = document.querySelectorAll('.main-menu_nav');
         // Ambil semua link dari menu
 
@@ -82,7 +83,7 @@
                     .then(function(response) {
                         var html = atob(response['data'].html);
                         var plugins = atob(response['data'].plugins);
-                        console.log(plugins)
+                        // console.log(plugins)
                         $('#content-area').html(html);
                         $('#content-plugins').html(plugins);
                         // console.log(atob(response.html))
@@ -114,6 +115,23 @@
             //     data: "some data"
             // });
         });
+
+        switchModule = (mm) => {
+            APP.axiosRequest({
+                url: `${BASE_URL}/api/desk/switch-role`,
+                data: {
+                    'set_module': mm
+                },
+            }).then(data => {
+                if(data['data']['status']){
+                    location.reload();
+                }
+                // console.log(data)
+            }).catch(error => {
+                // console.log(BASE_URL)
+                // console.error("Fetch error:", error);
+            });
+        }
     </script>
     @yield('plugins')
 </body>
