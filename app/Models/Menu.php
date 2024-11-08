@@ -32,7 +32,7 @@ class Menu extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'menu_role_permission')
+        return $this->belongsToMany(Role::class, 'menu_role_permissions')
                     ->withPivot('permission_id')
                     ->withTimestamps();
     }

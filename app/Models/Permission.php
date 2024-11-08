@@ -18,7 +18,7 @@ class Permission extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'menu_role_permission')
+        return $this->belongsToMany(Role::class, 'menu_role_permissions')
                     ->withPivot('menu_id')
                     ->withTimestamps();
     }

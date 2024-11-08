@@ -15,23 +15,45 @@ class MenuRolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::where('name', 'Admin')->first();
-        $userRole = Role::where('name', 'Guru')->first();
+        // $userRole = Role::where('name', 'Guru')->first();
+        // $permissions = Permission::all();
+        $this->adminPermision();
+        $this->keryawanPermision();
+        $this->guruPermision();
+        $this->siswaPermision();
+    }
 
-        $permissions = Permission::all();
-
+    function adminPermision()
+    {
+        $role = Role::where('kode', 'admin')->first();
         $menus = Menu::all();
-
         foreach ($menus as $menu) {
-            foreach ($permissions as $permission) {
-                // Contoh: Role Admin memiliki semua permission
-                $menu->roles()->attach($adminRole->id, ['permission_id' => $permission->id]);
+            $menu->roles()->attach($role->id);
+        }
+    }
 
-                // Contoh: Role User hanya memiliki permission 'read'
-                if ($permission->name == 'read') {
-                    $menu->roles()->attach($userRole->id, ['permission_id' => $permission->id]);
-                }
-            }
+    function keryawanPermision()
+    {
+        $role = Role::where('kode', 'karyawan')->first();
+        $menus = Menu::whereIn('name', ['Dashboard'])->get();
+        foreach ($menus as $menu) {
+            $menu->roles()->attach($role->id);
+        }
+    }
+    function guruPermision()
+    {
+        $role = Role::where('kode', 'guru')->first();
+        $menus = Menu::whereIn('name', ['Dashboard'])->get();
+        foreach ($menus as $menu) {
+            $menu->roles()->attach($role->id);
+        }
+    }
+    function siswaPermision()
+    {
+        $role = Role::where('kode', 'siswa')->first();
+        $menus = Menu::whereIn('name', ['Dashboard'])->get();
+        foreach ($menus as $menu) {
+            $menu->roles()->attach($role->id);
         }
     }
 }
