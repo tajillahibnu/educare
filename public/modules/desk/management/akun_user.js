@@ -29,7 +29,7 @@ mainTable = () => {
             },
             {
                 targets: 2,
-                data: 'role_name',
+                // data: 'role_name',
                 render: function (data, type, full, meta) {
                     return full['role_name'];
                 },

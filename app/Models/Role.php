@@ -16,6 +16,12 @@ class Role extends Model
         return $this->belongsToMany(User::class)->withPivot('is_primary')->withTimestamps();
     }
 
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class, 'menu_roles');
+    }
+
+
     // public function menus()
     // {
     //     return $this->belongsToMany(Menu::class, 'menu_role_permissions')
@@ -23,12 +29,12 @@ class Role extends Model
     //                 ->withTimestamps();
     // }
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class, 'menu_role_permissions')
-                    ->withPivot('menu_id')
-                    ->withTimestamps();
-    }
+    // public function permissions()
+    // {
+    //     return $this->belongsToMany(Permission::class, 'menu_role_permissions')
+    //                 ->withPivot('menu_id')
+    //                 ->withTimestamps();
+    // }
 
 
 }

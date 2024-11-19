@@ -1,3 +1,1 @@
-<script src="{{asset('/')}}modules/desk/kurikulum/masterkurikulum.js"></script>
-<script src="{{asset('/')}}modules/desk/kurikulum/detail_kurikulum.js"></script>
-<script src="{{asset('/')}}modules/desk/kurikulum/kelompok_mapel.js"></script>
+<script src="{{asset('/')}}modules/desk/kurikulum/kurikulum.js"></script>

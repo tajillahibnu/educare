@@ -18,7 +18,7 @@ class MapelServices
 
     public function enrolMapel($groupId, $mapelId)
     {
-        return $this->mainRepository->storeMapelToKelompokMapel($groupId, $mapelId);
+        // return $this->mainRepository->storeMapelToKelompokMapel($groupId, $mapelId);
     }
 
     public function table($kelompok_id)

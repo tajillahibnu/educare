@@ -119,6 +119,8 @@ class ShowPageService
         if ($cekRoleUser->count() > 0) {
             $bStatus = true;
             session()->put('akses_module', $module);
+        }else{
+            abort(403, 'Unauthorized action.');
         }
         return ['module' => $cekRoleUser, 'status' => $bStatus];
     }

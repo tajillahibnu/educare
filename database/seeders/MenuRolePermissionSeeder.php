@@ -35,15 +35,17 @@ class MenuRolePermissionSeeder extends Seeder
     function keryawanPermision()
     {
         $role = Role::where('kode', 'karyawan')->first();
-        $menus = Menu::whereIn('name', ['Dashboard'])->get();
+        $menus = Menu::whereIn('url', ['dashboard','jurnalkbm'])->get();
         foreach ($menus as $menu) {
             $menu->roles()->attach($role->id);
         }
     }
+    
     function guruPermision()
     {
         $role = Role::where('kode', 'guru')->first();
-        $menus = Menu::whereIn('name', ['Dashboard'])->get();
+        $menus = Menu::whereIn('url', ['dashboard','jurnalkbm'])->get();
+        // $menus = Menu::where('name','Dashboard')->whereIn('type', ['guru'])->get();
         foreach ($menus as $menu) {
             $menu->roles()->attach($role->id);
         }

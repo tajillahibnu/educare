@@ -1,7 +1,6 @@
 onDetailPage = (el) => {
     var data = $(el).data('params')
     data = JSON.parse(atob(data));
-    console.log(data)
     targetID = data['id'];
     updateCheckbox(data['is_active'])
     $.each(data, (ii, vv) => {
@@ -12,7 +11,7 @@ onDetailPage = (el) => {
     myQueue.enqueue(function (next) {
         tableKelompokMapel();
         tableKelas();
-        // showTab(`<a class="nav-link active" data-tabName="ktgMapel"><i class="ti ti-map-pin ti-sm me-1_5"></i></a>`);
+        $(`[data-tabName="ktgMapel"]`).click()
         next();
     }, '1m').enqueue(function (next) {
         $('#page-main').fadeOut(500, function () {
@@ -86,10 +85,10 @@ showEditKurikulum = () => {
 tableKelas = () => {
     APP.initTable({
         el: '#tableKelas', // ID atau kelas elemen tabel HTML
-        url: `${BASE_URL_MENU}kelas/table`, // URL endpoint API untuk mengambil data
+        url: `${BASE_URL_MENU}table-kelas`, // URL endpoint API untuk mengambil data
         data: { kurikulum_id: targetID },
-        order:[
-            [2,'desc']
+        order: [
+            [2, 'desc']
         ],
         columnDefs: [
             {

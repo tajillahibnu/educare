@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
+            $table->string('kode',70)->unique();
             $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade'); // Relasi ke menu
             $table->string('name'); // Nama permission (contoh: 'create', 'read', 'update', 'delete', 'export', dsb.)
             $table->text('description')->nullable(); // Deskripsi tentang permission

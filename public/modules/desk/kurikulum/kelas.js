@@ -1,10 +1,11 @@
 var kelas_id = '';
 onNewKelas = () => {
     kelas_id = '';
+    $('#tingkat_id option:selected').prop('disabled', false);
     // loadComboOptions();
     APP.combov1({
         el: ['#tingkat_id'],
-        url: `${BASE_URL_MENU}kelas/getTingkat`,
+        url: `${BASE_URL_MENU}combo/getTingkat`,
         fild_id: 'id',
         fild_name: 'name',
         dropdownParent: '#modal-kelas'
@@ -15,13 +16,15 @@ onNewKelas = () => {
 
 onEditKelas = (el) => {
     $('#formKelas').trigger('reset');
-    APP.combov1({
-        el: ['#tingkat_id'],
-        url: `${BASE_URL_MENU}kelas/getTingkat`,
-        fild_id: 'id',
-        fild_name: 'name',
-        dropdownParent: '#modal-kelas'
-    })
+    $('#tingkat_id').prop('disabled', true);
+    // $('#tingkat_id').disbaled();
+    // APP.combov1({
+    //     el: ['#tingkat_id'],
+    //     url: `${BASE_URL_MENU}combo/getTingkat`,
+    //     fild_id: 'id',
+    //     fild_name: 'name',
+    //     dropdownParent: '#modal-kelas'
+    // })
     var data = $(el).data('params')
     data = JSON.parse(atob(data));
     kelas_id = data['id'];

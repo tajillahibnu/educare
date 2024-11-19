@@ -3,6 +3,7 @@
 namespace Modules\Desk\Http\Middleware;
 
 use App\Models\Menu;
+use App\Models\MenuRole;
 use App\Models\MenuRolePermission;
 use Closure;
 use Illuminate\Http\Request;
@@ -18,16 +19,17 @@ class LoadMenu
     {
         if (Auth::check()) {
             $roleActive = session('akses_module');
-
-            $menus = MenuRolePermission::select("menus.*")
+            $menus = MenuRole::select("menus.*")
                 ->where('roles.kode', strtolower($roleActive))
-                ->where('type', 'admin')
+                // ->where('type', 'admin')
                 ->whereNull('parent_id')
-                ->join('roles', 'menu_role_permissions.role_id', '=', 'roles.id') // Join ke tabel roles
-                ->join('menus', 'menu_role_permissions.menu_id', '=', 'menus.id') // Join ke tabel roles
+                ->join('roles', 'menu_roles.role_id', '=', 'roles.id') // Join ke tabel roles
+                ->join('menus', 'menu_roles.menu_id', '=', 'menus.id') // Join ke tabel roles
                 ->orderBy('menu_order', 'ASC')
                 ->get();
-
+                // echo $roleActive;
+                // dd($menus);
+                // exit;
             foreach ($menus as $value) {
                 $value->name = ucwords($value->name);
                 $value->sub_menu = $this->subMenuNav($value->id, $roleActive);;
@@ -44,8 +46,8 @@ class LoadMenu
     //             ->where('roles.kode', strtolower($roleActive))
     //             ->where('type', 'admin')
     //             ->whereNull('parent_id')
-    //             ->join('roles', 'menu_role_permissions.role_id', '=', 'roles.id') // Join ke tabel roles
-    //             ->join('menus', 'menu_role_permissions.menu_id', '=', 'menus.id') // Join ke tabel roles
+    //             ->join('roles', 'menu_roles.role_id', '=', 'roles.id') // Join ke tabel roles
+    //             ->join('menus', 'menu_roles.menu_id', '=', 'menus.id') // Join ke tabel roles
     //             ->orderBy('menu_order', 'ASC')
     //             ->get();
     //     // $aArrData = Menu::where('type', 'admin')
@@ -61,13 +63,13 @@ class LoadMenu
 
     private function subMenuNav($id, $roleActive)
     {
-        $aArrSubMenu = MenuRolePermission::select("menus.*")
+        $aArrSubMenu = MenuRole::select("menus.*")
             ->where('parent_id', $id)
             ->where('roles.kode', strtolower($roleActive))
-            ->where('type', 'admin')
+            // ->where('type', 'admin')
             ->whereNotNull('parent_id')
-            ->join('roles', 'menu_role_permissions.role_id', '=', 'roles.id') // Join ke tabel roles
-            ->join('menus', 'menu_role_permissions.menu_id', '=', 'menus.id') // Join ke tabel roles
+            ->join('roles', 'menu_roles.role_id', '=', 'roles.id') // Join ke tabel roles
+            ->join('menus', 'menu_roles.menu_id', '=', 'menus.id') // Join ke tabel roles
             ->orderBy('menu_order', 'ASC')
             ->get();
         // $aArrSubMenu = Menu::where('parent_id', $id)->get();

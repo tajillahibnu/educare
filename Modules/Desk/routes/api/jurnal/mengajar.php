@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Desk\Http\Controllers\Jurnal\MengajarController;
+
+/*
+    |--------------------------------------------------------------------------
+    | API Routes
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register API routes for your application. These
+    | routes are loaded by the RouteServiceProvider within a group which
+    | is assigned the "api" middleware group. Enjoy building your API!
+    |
+*/
+
+// Route::middleware(['auth:sanctum'])->prefix('v1')->name('api.')->group(function () {
+//     Route::get('management', fn (Request $request) => $request->user())->name('management');
+// });
+
+
+Route::group(['prefix' => 'jurnal/kbm', 'middleware' => ['web', 'auth']], function () {
+    Route::post('main-table', [MengajarController::class, 'mainTable'])->name('main-table');
+    // Route::post('store', [MapelController::class, 'store'])->name('store');
+    // Route::post('update/{id}', [MapelController::class, 'update'])->name('update');
+    // Route::post('delete', [MapelController::class, 'delete'])->name('delete');
+});

@@ -1,0 +1,40 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: educare_db
+    networks:
+      my_network:
+        ipv4_address: 172.168.2.50  # Mengubah alamat IP sesuai subnet baru
+    environment:
+      MYSQL_ROOT_PASSWORD: kotaM@l4ng
+    ports:
+      - "4406:3306"  # Mengubah port host menjadi 4406 dan port kontainer tetap 3306
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  educare:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: educare
+    container_name: educare_app
+    restart: unless-stopped
+    ports:
+      - "81:80"  # Mengubah port host menjadi 81 dan port kontainer tetap 80
+      # - "82:82"  # Mengubah port host menjadi 81 dan port kontainer tetap 80
+      - "2222:22"  # Expose port 2222 untuk SSH
+    volumes:
+      - .:/var/www/html
+    networks:
+      my_network:  # Menggunakan jaringan yang sama dengan MariaDB
+        ipv4_address: 172.168.2.21  # Mengubah alamat IP sesuai subnet baru
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.168.2.0/24  # Mengubah subnet ke 172.168.2.0/24
+
+volumes:
+  mariadb_data:

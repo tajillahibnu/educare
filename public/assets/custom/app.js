@@ -14,7 +14,7 @@ var APP = ((config) => {
             alert("Sesi Anda telah berakhir. Anda akan diarahkan ke halaman login.");
             window.location.reload();
         },
-        403: () => alert("Anda tidak memiliki izin untuk mengakses sumber daya ini."),
+        403: () => alert("Anda tidak memiliki izin untuk mengakses."),
         419: () => {
             alert("Sesi Anda telah kedaluwarsa. Halaman akan dimuat ulang.");
             window.location.reload();
@@ -318,6 +318,10 @@ var APP = ((config) => {
                         dropdownParent: config.dropdownParent ? $(config.dropdownParent) : undefined
                     });
                 });
+                if (typeof config.callback === "function") {
+                    config.callback(response);
+                }
+
             }).catch(error => {
                 // console.error("Fetch error:", error);
             });
@@ -325,30 +329,6 @@ var APP = ((config) => {
         }
     };
 })({ defaultOption: true }); // Mengirimkan objek config saat IIFE dipanggil
-
-// Menggunakan metode save
-
-// function checkSession() {
-//     // axios.get('/session/check')
-//     //     .then(function (response) {
-//     //         if (response.data.loggedIn) {
-//     //             console.log('Session is active');
-//     //             // Sesi masih aktif, lakukan sesuatu
-//     //         } else {
-//     //             console.log('Session is inactive');
-//     //             // Sesi tidak aktif, arahkan pengguna untuk login atau tampilkan pesan
-//     //             // window.location.href = '/login'; // atau tampilkan modal/pesan
-//     //         }
-//     //     })
-//     //     .catch(function (error) {
-//     //         console.error('Error checking session:', error);
-//     //     });
-// }
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     console.log('load')
-//     setInterval(checkSession(), 300000); // Cek setiap 5 menit
-// });
 
 class Queue {
     constructor() {

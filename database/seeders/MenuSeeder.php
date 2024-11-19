@@ -16,6 +16,8 @@ class MenuSeeder extends Seeder
         $menuNumber = 1;
         $this->dashboard(1, $menuNumber);
         $menuNumber++;
+        $this->jurnalMengajar(2, $menuNumber);
+        $menuNumber++;
         $this->data(20, $menuNumber);
         $menuNumber++;
         $this->Kelas(30, $menuNumber);
@@ -37,6 +39,22 @@ class MenuSeeder extends Seeder
         $save['type']  = 'admin';
         $save['url']   = 'dashboard';
         $save['view_path']  = 'dashboard/';
+        $save['view_file']  = 'table';
+        $save['level'] = null;
+        $save['menu_order'] = $menuNumber;
+        $save['middlewares'] = json_encode(['auth']);
+        Menu::create($save);
+    }
+
+        
+    function jurnalMengajar($id, $menuNumber)
+    {
+
+        $save['id']    = $id;
+        $save['name']  = 'Jurnal Megajar';
+        $save['type']  = 'guru';
+        $save['url']   = 'jurnalkbm';
+        $save['view_path']  = 'jurnal/mengajar/';
         $save['view_file']  = 'table';
         $save['level'] = null;
         $save['menu_order'] = $menuNumber;
@@ -117,7 +135,7 @@ class MenuSeeder extends Seeder
         $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
-        $save['name']       = 'Semester';
+        $save['name']       = 'Management Kurikulum';
         $save['url']        = null;
         $save['level']      = null;
         $save['type']       = 'admin';
@@ -227,7 +245,7 @@ class MenuSeeder extends Seeder
         $dd = $dd + 1;
         $save['id']         = $dd;
         $save['parent_id']  = $id;
-        $save['name']       = 'Menu';
+        $save['name']       = 'Role Menu';
         $save['url']        = 'menu';
         $save['level']      = null;
         $save['type']       = 'admin';
@@ -267,7 +285,7 @@ class MenuSeeder extends Seeder
         $save['id']         = $dd;
         $save['parent_id']  = $id;
         $save['name']       = 'Mata Pelajaran';
-        $save['url']        = null;
+        $save['url']        = 'mapel';
         $save['level']      = null;
         $save['type']       = 'admin';
         $save['menu_order'] = $order++;

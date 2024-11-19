@@ -22,8 +22,9 @@ class AuthController extends Controller
 
             // $getRole = Role::where('id', $user->primary_role_id)->get()->toArray();
             $getRole = Role::where('id', $user->primary_role_id)->first();
-            session()->put('user_role', 'admin');
-            session()->put('akses_module', 'admin');
+
+            // session()->put('user_role', 'admin');
+            session()->put('akses_module', $getRole->kode);
 
 
 

@@ -16,6 +16,20 @@ class KurikulumController extends Controller
         $this->mainServices = $mainServices;
     }
 
+    public function tableTahunKelas(Request $request)
+    {
+        $filter = [];
+        return $this->mainServices->tableTahunKelas($filter);
+    }
+
+    public function show(Request $request)
+    {
+        $res = $this->mainServices->getKurikulumId($request->kurikulum_id);
+        return $this->apiResponse()
+        ->services($res)
+        ->send();
+    }
+
     public function store(Request $request)
     {
         $save['name'] = $request->name;

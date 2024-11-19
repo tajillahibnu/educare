@@ -29,20 +29,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             BahasaSeeder::class,
-            TingkatSeeder::class,
             RoleSeeder::class,
-            RoleUserSeeder::class,
             MenuSeeder::class,
             PermissionSeeder::class,
             MenuRolePermissionSeeder::class,
             MapelSeeder::class,
             AcademicYearSeeder::class,
             KelompokMapelSeeder::class,
+            RoleUserSeeder::class,
+            TingkatSeeder::class,
         ]);
-
-        
-        $affectedRows = User::where(['primary_role_id' => null])->where('id', '<=', '11')->update(['primary_role_id' => 2]);
-        $affectedRows = User::where(['primary_role_id' => null])->where('id', '>', '11')->update(['primary_role_id' => 4]);
-        $affectedRows = User::where(['email' => 'admin@demo.com'])->update(['primary_role_id' => 1]);
     }
 }

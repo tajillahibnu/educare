@@ -25,15 +25,20 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'parent_id');
     }
     
-    public function permissions()
-    {
-        return $this->hasMany(Permission::class);
-    }
-
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'menu_role_permissions')
-                    ->withPivot('permission_id')
-                    ->withTimestamps();
+        return $this->belongsToMany(Role::class, 'menu_roles');
     }
+
+    // public function permissions()
+    // {
+    //     return $this->hasMany(Permission::class);
+    // }
+
+    // public function roles()
+    // {
+    //     return $this->belongsToMany(Role::class, 'menu_role_permissions')
+    //                 ->withPivot('permission_id')
+    //                 ->withTimestamps();
+    // }
 }

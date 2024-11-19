@@ -9,6 +9,21 @@
     data-template="web-starter-app"
     data-style="light">
 @include('shared::layouts.head')
+<style>
+    /* body{
+        zoom: 0.9;
+    }
+    .modal-backdrop {
+            transform: scale(1.33);
+            width: 133.33%;
+            height: 133.33%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        } */
+</style>
 
 <body>
     <!-- Layout wrapper -->
@@ -123,12 +138,10 @@
                     'set_module': mm
                 },
             }).then(data => {
-                if(data['data']['status']){
+                if (data['data']['status']) {
                     location.reload();
                 }
-                // console.log(data)
             }).catch(error => {
-                // console.log(BASE_URL)
                 // console.error("Fetch error:", error);
             });
         }

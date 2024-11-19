@@ -1,1 +1,1 @@
-<script src="{{asset('/')}}modules/desk/managament/menu.js"></script>
+<script src="{{asset('/')}}modules/desk/management/menu.js"></script>

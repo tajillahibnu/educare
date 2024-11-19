@@ -63,7 +63,7 @@ class KurikulumService
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();
             Log::error("Error deleting item: " . $e->getMessage());
-            throw new Exception("Failed to delete item".$e->getMessage(), 500);
+            throw new Exception("Failed to delete item" . $e->getMessage(), 500);
         }
     }
 
@@ -79,6 +79,36 @@ class KurikulumService
         }
 
         return $this->repository->find($id);
+    }
+
+    public function enrolTahunKurikulum(array $data)
+    {
+        $response = $this->repository->enrolTahunKurikulum($data);
+        return $response;
+    }
+
+
+    public function tableTahunKelas()
+    {
+        return DataTableService::draw('tahun_kurikulums')
+            ->select(['tahun_kurikulums.*', 'kurikulums.name AS kurikulum_name', 'tingkats.romawi AS tingkat_name'])
+            ->join('kurikulums', [['kurikulums.id', '=', 'tahun_kurikulums.kurikulum_id']], 'left')
+            ->join('tingkats', [['tingkats.id', '=', 'tahun_kurikulums.tingkat_id']], 'left')
+            // ->where('deleted_at', 'IS', NULL)
+            ->addColumn('action', function ($detail) {
+                // <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></button>
+                return '
+                <div class="d-inline-block text-nowrap">
+                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light" data-permision="user-update" onclick="onDetailPage(this)" data-params="' . base64_encode(json_encode($detail)) . '"><i class="ti ti-eye ti-md"></i></button>
+                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti ti-dots-vertical ti-md"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
+                        <a class="dropdown-item waves-effect" href="javascript:void(0);" data-permision="user-update" onclick="editData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Edit</a>
+                        <a class="dropdown-item waves-effect" href="javascript:void(0);" data-permision="user-update" onclick="deleteData(this)" data-params="' . base64_encode(json_encode($detail)) . '">Delete</a>
+                    </div>
+                </div>
+                ';
+            })
+            ->toJson();
     }
 
     public function table()

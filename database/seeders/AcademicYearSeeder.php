@@ -17,13 +17,17 @@ class AcademicYearSeeder extends Seeder
     {
         // Menambah data Tahun Akademik
         $academicYear = AcademicYear::create([
+            'year' => '2022/2023',
+            'is_active' => false
+        ]);
+        $academicYear = AcademicYear::create([
             'year' => '2023/2024',
             'is_active' => true
         ]);
 
         // Menambah data Kurikulum
         Kurikulum::create([
-            'name' => 'Kurikulum 2013',
+            'name' => 'Kurikulum TEST',
             // 'academic_year_id' => $academicYear->id,
             // 'semester_id' => $semester1->id,
             'is_active' => true

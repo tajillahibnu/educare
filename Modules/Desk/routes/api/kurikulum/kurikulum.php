@@ -24,17 +24,32 @@ use Modules\Desk\Http\Controllers\Master\KurikulumController as MasterKurikulumC
 // });
 
 
-Route::group(['prefix' => 'kurikulum/', 'middleware' => ['web', 'auth']], function () {
+
+
+
+Route::group(['prefix' => 'master/kurikulum/', 'middleware' => ['web', 'auth']], function () {
     Route::post('main-table', [KurikulumController::class, 'mainTable'])->name('main-table');
-    Route::post('read', [KurikulumController::class, 'show'])->name('read');
     Route::post('table-kelompokmapel', [KurikulumController::class, 'tableKelompokMapel'])->name('table-kelompokmapel');
+    Route::post('table-kelas', [KelasController::class, 'table'])->name('table-kelas');
     Route::post('table-mapel', [KurikulumController::class, 'tableMapel'])->name('table-mapel');
+    Route::post('save_mapel', [KurikulumMapelController::class, 'save_mapel'])->name('save_mapel');
+    Route::post('read', [MasterKurikulumController::class, 'show'])->name('read');
     Route::post('store', [MasterKurikulumController::class, 'store'])->name('store');
     Route::post('update/{id}', [MasterKurikulumController::class, 'update'])->name('update');
     Route::post('update_status', [MasterKurikulumController::class, 'update_status'])->name('update_status');
     Route::post('delete', [MasterKurikulumController::class, 'delete'])->name('delete');
-    Route::post('save_mapel', [KurikulumMapelController::class, 'save_mapel'])->name('save_mapel');
-    /** Kelompok Matapelajaran */
+    // /** Kelompok Matapelajaran */
+    Route::group(['prefix' => 'combo'], function () {
+        Route::post('getTingkat', [KelasController::class, 'comboTingkat'])->name('getTingkat');
+        //     Route::post('tahun', [KurikulumController::class, 'combotahunpelajaran'])->name('tahun');
+        //     Route::post('all', [KurikulumController::class, 'combokurikulum'])->name('all');
+        //     Route::post('tingkat', [KurikulumController::class, 'combotingkat'])->name('tingkat');
+    });
+
+    // Route::group(['prefix' => 'enrol'], function () {
+    //     Route::post('tahun', [KurikulumController::class, 'tahunTokurikulum'])->name('tahun');
+    // });
+
     Route::group(['prefix' => 'kelompok_mapel'], function () {
         Route::post('store', [KelompokMapelController::class, 'store'])->name('store');
         Route::post('update/{id}', [KelompokMapelController::class, 'update'])->name('update');
@@ -42,10 +57,27 @@ Route::group(['prefix' => 'kurikulum/', 'middleware' => ['web', 'auth']], functi
     });
 
     Route::group(['prefix' => 'kelas'], function () {
-        Route::post('table', [KelasController::class, 'table'])->name('table');
         Route::post('store', [KelasController::class, 'store'])->name('store');
         Route::post('update/{id}', [KelasController::class, 'update'])->name('update');
         Route::post('delete', [KelasController::class, 'delete'])->name('delete');
-        Route::post('getTingkat', [KelasController::class, 'comboTingkat'])->name('getTingkat');
     });
+});
+
+Route::group(['prefix' => 'kurikulum/', 'middleware' => ['web', 'auth']], function () {
+        Route::post('table', [MasterKurikulumController::class, 'tableTahunKelas'])->name('table');
+    //     Route::post('store', [MasterKurikulumController::class, 'store'])->name('store');
+    //     Route::post('update/{id}', [MasterKurikulumController::class, 'update'])->name('update');
+    //     Route::post('update_status', [MasterKurikulumController::class, 'update_status'])->name('update_status');
+    //     Route::post('delete', [MasterKurikulumController::class, 'delete'])->name('delete');
+    //     Route::post('save_mapel', [KurikulumMapelController::class, 'save_mapel'])->name('save_mapel');
+    //     /** Kelompok Matapelajaran */
+    Route::group(['prefix' => 'combo'], function () {
+        Route::post('tahun', [KurikulumController::class, 'combotahunpelajaran'])->name('tahun');
+        Route::post('all', [KurikulumController::class, 'combokurikulum'])->name('all');
+        Route::post('tingkat', [KurikulumController::class, 'combotingkat'])->name('tingkat');
+    });
+
+        Route::group(['prefix' => 'enrol'], function () {
+            Route::post('tahun', [KurikulumController::class, 'tahunTokurikulum'])->name('tahun');
+        });
 });

@@ -26,10 +26,12 @@ Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () 
     require_once(__DIR__ . '/api/management/user.php');
     require_once(__DIR__ . '/api/management/siswa.php');
     require_once(__DIR__ . '/api/management/pegawai.php');
+    require_once(__DIR__ . '/api/management/rolemenu.php');
     require_once(__DIR__ . '/api/kurikulum/kurikulum.php');
     require_once(__DIR__ . '/api/master/role.php');
     require_once(__DIR__ . '/api/master/mapel.php');
     require_once(__DIR__ . '/api/master/tahunAkademik.php');
+    require_once(__DIR__ . '/api/jurnal/mengajar.php');
 });
 
 // Route::post('cekuser', [UserController::class, 'test'])->name('cekuser');

@@ -1,5 +1,5 @@
 var targetID = '';
-var BASE_URL_MENU = `${BASE_URL}/api/desk/kurikulum/`;
+var BASE_URL_MENU = `${BASE_URL}/api/desk/master/kurikulum/`;
 
 $(() => {
     mainTable()
