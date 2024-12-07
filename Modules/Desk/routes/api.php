@@ -32,6 +32,7 @@ Route::group(['prefix' => 'desk', 'middleware' => ['web', 'auth']], function () 
     require_once(__DIR__ . '/api/master/mapel.php');
     require_once(__DIR__ . '/api/master/tahunAkademik.php');
     require_once(__DIR__ . '/api/jurnal/mengajar.php');
+    require_once(__DIR__ . '/api/setting/app.php');
 });
 
 // Route::post('cekuser', [UserController::class, 'test'])->name('cekuser');

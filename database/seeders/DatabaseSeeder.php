@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call([
+            ConfigAppSeeder::class,
             BahasaSeeder::class,
             RoleSeeder::class,
             MenuSeeder::class,

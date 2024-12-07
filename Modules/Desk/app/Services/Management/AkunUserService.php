@@ -23,7 +23,7 @@ class AkunUserService
         $response['success'] = false;
         $response['statusCode'] = 400;
         try {
-            $response = $this->repository->update($id, $data);
+            $response = $this->repository->update($data,$id);
             
             if (!empty($subRole)) {
                 if (!in_array($data['primary_role_id'], $subRole)) {

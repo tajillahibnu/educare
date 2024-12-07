@@ -205,7 +205,7 @@ trait ApiResponseTrait
         unset($this->response['statusCode']);
         
         if ($statusCode) {
-            $this->response['success'] = false;
+            // $this->response['success'] = false;
             unset($this->response['data']['success']);
         }
 

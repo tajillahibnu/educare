@@ -1,1 +1,1 @@
-<script src="{{asset('/')}}modules/desk/kelas/kelas.js"></script>
+<script src="{{asset('/')}}modules/desk/setting/app.js"></script>

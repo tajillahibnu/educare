@@ -57,7 +57,7 @@ class KelasService
                 $data['code']       = $getTingkat->romawi.'-'.str_replace(' ','-',$data['name']);
             }
 
-            $response['data'] = $this->repository->update($id, $data);
+            $response['data'] = $this->repository->update($data,$id);
             $response['success'] = true;
             $response['statusCode'] = 200;
         } catch (NotFoundHttpException $e) {

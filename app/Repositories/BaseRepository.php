@@ -69,11 +69,27 @@ abstract class BaseRepository
      * @param array $data
      * @return Model
      */
-    public function update($id, array $data)
+    public function update(array $data, $identifier = null)
     {
-        $instance = $this->find($id);
-        $instance->update($data);
-        return $instance;
+        // $instance = $this->find($id);
+        // $instance->update($data);
+        // return $instance;
+        $query = $this->model->newQuery();
+
+        if ($identifier !== null) {
+            if (is_array($identifier)) {
+                foreach ($identifier as $condition) {
+                    $this->applyCondition($query, $condition);
+                }
+
+                return $query->update($data);
+            }
+
+            $instance = $this->find($identifier);
+            return $instance->update($data);
+        }
+
+        return false;
     }
 
     /**
@@ -82,9 +98,21 @@ abstract class BaseRepository
      * @param mixed $id
      * @return bool|null
      */
-    public function delete($id)
+    public function delete($identifier)
     {
-        $instance = $this->find($id);
+        //     $instance = $this->find($id);
+        //     return $instance->delete();
+        $query = $this->model->newQuery();
+
+        if (is_array($identifier)) {
+            foreach ($identifier as $condition) {
+                $this->applyCondition($query, $condition);
+            }
+            return $query->delete();
+        }
+
+        $instance = $this->find($identifier);
+
         return $instance->delete();
     }
 }
